@@ -1,48 +1,25 @@
 <template>
   <div class="search-view-wrapper">
-    <div class="header-wrapper">
-      <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
-      <input type="text" class="input-search" v-model="valueInput"/>
-      {{ valueInput.value }}
-    </div>
-    
+    <MobileHeader :menuType="'search-menu'"/>
     <router-view></router-view>
   </div>
 </template>
 <script scope>
 import router from '@/router';
-import { ref, watch } from 'vue';
+import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 export default {
   name: 'MobileSearchView',
+  components: { MobileHeader },
   setup() {
-    const valueInput = ref(router.currentRoute.value.query?.q || '');
-    watch(valueInput,()=>{
-      router.replace({path:'/search', query:{ q: valueInput.value, type: router.currentRoute.value.query.type },});
-    })
+    
     function back() {
       router.back();
     }
-    return { valueInput, back };
+    return { back };
   }
 }
 </script>
 <style scoped>
-.input-search {
-  border: none;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 35px;
-  border-radius: 25px;
-  text-indent: 10px;
-  color: var(--four-color);
-}
-.input-search:focus {
-  outline: none;
-}
 .search-view-wrapper {
   display: flex;
   flex-direction: column;

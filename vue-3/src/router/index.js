@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LayoutView from '../views/LayoutView.vue'
 import MobileLayoutView from '../views/MobileLayoutView.vue'
-import DetailView from '../views/DetailView.vue'
+import MobileDetailView from '../views/MobileDetailView.vue'
+import MobileFilmView from '../views/MobileFilmView.vue'
 import FilmView from '../views/FilmView.vue'
 import MusicView from '../views/MusicView.vue'
+import MobileMusicView from '../views/MobileMusicView.vue'
 import StoryView from '../views/StoryView.vue'
+import MobileStoryView from '../views/MobileStoryView.vue'
 import MobileSearchView from '../views/MobileSearchView.vue'
 import MobileSearch from '../components/client/mobile/MobileSearch.vue'
+import SettingView from '../views/MobileSettingView.vue'
+import MobileRegisterView from '../views/MobileRegisterView'
 
 const routes = [
   {
@@ -17,22 +22,22 @@ const routes = [
       {
         path: '',
         name: 'film',
-        component: FilmView,
+        component: isMobileDevice() ? MobileFilmView : FilmView,
       },
       {
         path: '/detail/:id',
         name: 'detail',
-        component: DetailView,
+        component: MobileDetailView,
       },
       {
         path: '/music',
         name: 'music',
-        component: MusicView,
+        component: isMobileDevice() ? MobileMusicView : MusicView ,
       },
       {
         path: '/story',
         name: 'story',
-        component: StoryView,
+        component: isMobileDevice() ? MobileStoryView : StoryView ,
       },
       {
         path: '/search',
@@ -45,16 +50,28 @@ const routes = [
             component: MobileSearch,
           }
         ]
+      },
+      {
+        path: '/setting',
+        name: 'setting',
+        component: SettingView,
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: MobileRegisterView,
       }
     ]
   },
   {
     path: '/admin',
     name: 'admin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-match',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ErrorView.vue')
   }
 ]
 function isMobileDevice() {

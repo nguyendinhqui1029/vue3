@@ -18,7 +18,7 @@
     components:{ MobileCard },
     props: {
       header: String,
-      itemList: []
+      itemList: Array
     },
     setup(props,content) {
       function cardItemClick(idItem) {

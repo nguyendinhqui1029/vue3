@@ -13,7 +13,7 @@ import router from '@/router';
 import { watchEffect } from 'vue';
 export default {
   name: 'MobileMenu',
-  props: { menuList: [] },
+  props: { menuList: Array },
   setup(props, content) {
     watchEffect(() => {
       props.menuList.forEach(menuItem => {

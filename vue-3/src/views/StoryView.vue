@@ -1,20 +1,14 @@
 
 <template>
-  <div class="menu">
-    <MobileHeader/>
-    <MobileFilterTab :tabList="tabList" @tab-click="filterByTab($event)"/>
-  </div>
   <CategoriesContainer v-for="item in filmByCategory" :key="item.id" :header="item.name" :itemList="item.items" @card-click="navigateToDetail($event)" />
 </template>
 <script scope>
   import { reactive, ref } from 'vue';
-  import MobileFilterTab from '../components/client/mobile/MobileFilterTab.vue'
-  import MobileHeader from '../components/client/mobile/MobileHeader.vue'
   import CategoriesContainer from '@/components/shared/CategoriesContainer.vue'
   import router from '@/router';
   export default {
     name: 'StoryView',
-    components: { CategoriesContainer, MobileFilterTab, MobileHeader },
+    components: { CategoriesContainer },
     setup() {
     const type = ref('');
     const tabList = reactive([

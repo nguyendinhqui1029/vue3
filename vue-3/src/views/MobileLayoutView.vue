@@ -49,8 +49,7 @@ export default {
 }
 
 .content {
-  background: var(--second-color);
-  ;
+  background: var(--five-color);
   flex: 1;
   overflow-y: auto;
 }

@@ -1,18 +1,16 @@
 <template>
   <div class="card-wrapper">
-    <div class="video" :id="id" :style="{ 'height': videoHeight }">
-      <div v-if="isShowVideo">
+      <div :id="id" :style="{ height: videoHeight}" v-if="isShowVideo">
         <youtube-iframe 
         :video-id="idVideo" 
         :player-width="'100%'" 
-        :player-height="'100%'" 
+        :player-height="videoHeight" 
         :no-cookie="false">
         </youtube-iframe>
       </div>
-      <div v-else>
-        <img class="image" src="https://i.ytimg.com/vi/G2z77mnguNM/mqdefault.jpg">
+      <div class="image" v-else :id="id" :style="{  'max-height': videoHeight }">
+        <img src="https://i.ytimg.com/vi/G2z77mnguNM/mqdefault.jpg">
       </div>
-    </div>
     <div class="content-wrapper">
       <h4>
         {{ title }}
@@ -34,12 +32,12 @@ export default {
   setup() {
     const id = ref(Date.now());
     const videoHeight = ref(240);
-    return { id, videoHeight };
+    return { id, videoHeight};
   },
   mounted() {
     const videoContainer = document.getElementById(this.id);
     if (videoContainer) {
-      this.videoHeight = videoContainer.offsetWidth / 2;
+      this.videoHeight = videoContainer.offsetWidth / 1.6;
     }
   }
 }
@@ -47,12 +45,14 @@ export default {
 <style scoped>
 .image {
   width: 100%;
-  height: 100%;
+}
+.image img{
+  width: 100%;
 }
 
 .card-wrapper {
   background: var(--second-color);
-  border-bottom: 6px solid var(--five-color);
+  margin-bottom: 6px;
 }
 
 .content-wrapper {

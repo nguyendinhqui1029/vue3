@@ -1,7 +1,7 @@
 <template>
   <div class="detail-wrapper">
     <div class="menu">
-      <MobileHeader :isShowHeaderBack="true"/>
+      <MobileHeader :menuType="'back-menu'"/>
     </div>
     <MobileCard :isShowVideo="true"/>
     <CarouselContainer :itemList="filmTheSameCategory" @itemClick="navigateToDetail($event)"/>
@@ -32,7 +32,7 @@ Một sự cố đáng tiếc dẫn đến việc mở hộp (tất nhiên), thi
   import router from '@/router';
   import { watchEffect, ref } from 'vue';
   export default {
-    name: 'DetailView',
+    name: 'MobileDetailView',
     components: { MobileCard, CarouselContainer, MobileHeader },
     setup(){
       const type = ref('');
