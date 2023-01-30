@@ -3,9 +3,8 @@
   <form class="form">
     <InputControl @valueChange="emailValueChange($event)" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
     <InputControl @valueChange="emailValueChange($event)" label="Password" type="password" placeholder="Nhập password"/>
-    <InputControl @valueChange="emailValueChange($event)" label="Re-password" type="password" placeholder="Nhập lại password"/>
     <div class="button-group">
-      <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng kí'" type="primary"/>
+      <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng nhập'" type="primary"/>
       <ButtonControl @buttonClick="handleClickBack()" :label="'Trở lại'" type="secondary"/>
     </div>
   </form>
@@ -17,7 +16,7 @@ import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import { ref } from 'vue';
 import router from '@/router';
 export default {
-  name: 'MobileRegisterView',
+  name: 'MobileLoginView',
   components: { InputControl, ButtonControl, MobileHeader },
   setup() {
     const email = ref('a@gmail.com');

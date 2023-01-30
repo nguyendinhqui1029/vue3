@@ -1,5 +1,5 @@
 <template>
-  <div class="error-wrapper">
+  <div class="error-wrapper" id="mobileContentId">
       <h4>Bạn không thể truy cập đến trang này</h4>
       <span @click="back()">Trở lại</span>
   </div>

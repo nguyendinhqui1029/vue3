@@ -54,7 +54,7 @@ export default {
   position: absolute;
   top: -11px;
   left: 16px;
-  background-image: linear-gradient(transparent 53%, var(--second-color) 10%);
+  background-image: linear-gradient(transparent 50%, var(--second-color) 10%);
   padding: 0 3px;
  }
 </style>

@@ -22,7 +22,17 @@
   export default {
     name: 'MobileHeader',
     props:{
-      menuType: String
+      menuType: {
+        type: String,
+        default: 'main-menu',
+        validator: function (value) {
+        return [
+          'main-menu',
+          'back-menu',
+          'search-menu'
+        ].indexOf(value) !== -1
+      }
+      }
     },
     setup() {
       const valueInput = ref(router.currentRoute.value.query?.q || '');

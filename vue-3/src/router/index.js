@@ -12,6 +12,8 @@ import MobileSearchView from '../views/MobileSearchView.vue'
 import MobileSearch from '../components/client/mobile/MobileSearch.vue'
 import SettingView from '../views/MobileSettingView.vue'
 import MobileRegisterView from '../views/MobileRegisterView'
+import MobileLoginView from '../views/MobileLoginView'
+import MobileForgetPasswordView from '../views/MobileForgetPasswordView'
 
 const routes = [
   {
@@ -60,18 +62,28 @@ const routes = [
         path: '/register',
         name: 'register',
         component: MobileRegisterView,
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: MobileLoginView,
+      },
+      {
+        path: '/forget-password',
+        name: 'forget-password',
+        component: MobileForgetPasswordView,
       }
     ]
   },
   {
     path: '/admin',
     name: 'admin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue')
+    component: () => import('../views/AdminView.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-match',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ErrorView.vue')
+    component: () => import('../views/ErrorView.vue')
   }
 ]
 function isMobileDevice() {
