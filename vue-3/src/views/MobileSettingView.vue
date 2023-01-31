@@ -21,14 +21,17 @@
 <script>
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue'
 import SwitchButton from '@/components/shared/SwitchButton.vue'
+import { setTheme } from '@/utils/utils';
 import { ref } from 'vue'
 export default {
   name: 'SettingView',
   components: { MobileHeader, SwitchButton},
   setup() {
-    const darkMode = ref(true);
+    const isDark = localStorage.getItem('isDark') === 'true';
+    const darkMode = ref(isDark);
     function switchButtonChange(isDark) {
-      console.log(isDark)
+      localStorage.setItem('isDark', isDark);
+      setTheme(isDark);
     }
     return  { darkMode, switchButtonChange }
   },

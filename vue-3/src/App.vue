@@ -2,8 +2,13 @@
   <router-view/>
 </template>
 <script>
+import { setTheme } from '@/utils/utils';
 export default {
-  name:'App'
+  name:'App',
+  setup() {
+    const isDark = localStorage.getItem('isDark') === 'true';
+    setTheme(isDark);
+  }
 }
 </script>
 <style>

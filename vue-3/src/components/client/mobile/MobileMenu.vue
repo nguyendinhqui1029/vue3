@@ -55,6 +55,6 @@ export default {
 }
 
 .active {
-  color: var(--four-color);
+  color: var(--three-color);
 }
 </style>
