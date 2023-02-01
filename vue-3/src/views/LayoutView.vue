@@ -1,18 +1,12 @@
 <template>
   <div class="layout-wrapper">
       <div class="menu">
-        <ul>
-          <li>Logo</li>
-          <li>Phim</li>
-          <li>Truyện</li>
-          <li>Karaoke</li>
-          <li>search</li>
-          <li>dark mode</li>
-        </ul>
+        <DesktopMenu/>
       </div>
       <div class="content">
         <div class="container"></div>
         <div class="center-container">
+          <h2>Website cho desktop đang được phát triển. Vui lòng truy cập website này bằng mobile.</h2>
           <router-view></router-view>
         </div>
         <div class="container"></div>
@@ -21,8 +15,12 @@
   </div>
 </template>
 <script>
+import DesktopMenu from '@/components/client/DesktopMenu.vue';
 export default {
   name: 'LayoutView',
+  components: {
+    DesktopMenu
+  }
 }
 </script>
 
@@ -41,13 +39,6 @@ export default {
   position: fixed;
   width: 100%;
   z-index: 100;
-}
-.menu ul {
-  list-style: none;
-  display: flex;
-}
-.menu ul li {
-  padding: 0 60px;
 }
 .layout-wrapper {
   display: flex;

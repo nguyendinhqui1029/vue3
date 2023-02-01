@@ -10,7 +10,7 @@
       </ul>
     </div>
     <div class="footer">
-      <MobileMenu :menuList="menuItemList" @menu-click="menuItemClick($event)" />
+        <MobileMenu :menuList="menuItemList" @menu-click="menuItemClick($event)" />
     </div>
   </div>
 </template>
@@ -46,15 +46,20 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   height: 100vh;
+  position: relative;
 }
 
 .content {
   background: var(--five-color);
   flex: 1;
   overflow-y: auto;
+  margin-bottom: 55px;
 }
 
 .footer {
+  width: 100%;
   background: var(--primary-color);
+  position: fixed;
+  bottom: 0;
 }
 </style>

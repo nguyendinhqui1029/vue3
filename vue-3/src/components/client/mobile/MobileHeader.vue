@@ -96,5 +96,6 @@
   color: var(--second-color);
   padding: 0 16px;
   background: var(--primary-color);
+  position: relative;
 }
 </style>
