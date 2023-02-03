@@ -9,8 +9,8 @@
     </div>
   </form>
   <div class="container">
-    <div class="row" v-for="(items, index) in board.banco" :key="index">
-      <div class="column" v-for="(item, indexItem) in items" :key="indexItem" @click="itemClick(index, indexItem)">
+    <div class="row" v-for="(items, index) in board.chessBoard" :key="index">
+      <div class="column" v-for="(item, indexItem) in items" :key="indexItem" @click="itemClick(item)">
         {{ item.value }}
       </div>
     </div>
@@ -22,24 +22,16 @@ import ButtonControl from '@/components/shared/ButtonControl.vue';
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import { ref, reactive } from 'vue';
 import router from '@/router';
+import { CaroGame } from '@/utils/caro-game';
 export default {
   name: 'MobileForgetPasswordView',
   components: { InputControl, ButtonControl, MobileHeader },
   setup() {
+    const caro = new CaroGame();
+    caro.renderChessBoard()
     const email = ref('a@gmail.com');
-    const board = reactive({ banco: [] });
-
-    let isPlayer = false;
-    renderBanCo();
-    function renderBanCo() {
-      for (let i = 0; i < 9; i++) {
-        const rows = [];
-        for (let j = 0; j < 9; j++) {
-          rows.push({ x: j, y: i, value: '', disable: false });
-        }
-        board.banco.push(rows)
-      }
-    }
+    const board = reactive({ chessBoard: caro.getChessBoard() });
+    let isPlayerX = false;
     function emailValueChange(value) {
       console.log(value)
     }
@@ -50,86 +42,45 @@ export default {
       router.back();
     }
 
-    function itemClick(x, y) {
-      if (board.banco[x][y].disable) return;
-      const content = isPlayer ? 'X' : 'O';
-      isPlayer = !isPlayer;
-      board.banco[x][y].value = content;
-      board.banco[x][y].disable = true;
-      if (checkEndGame(board.banco[x][y])) {
-        console.log('End game')
+    function itemClick(chessBox) {
+      if (!isPlayerX) {
+        caro.placeAMove(chessBox, caro.PLAYER_O);
+        board.chessBoard = [...caro.getChessBoard()];
+        if (caro.hasPlayerWon(caro.PLAYER_O)) {
+          setTimeout(() => {
+            if (confirm('Bạn hay quá! Chơi lại nha.')) {
+              caro.renderChessBoard();
+              board.chessBoard = [...caro.getChessBoard()];
+            }
+            return;
+          }, 1000);
+        }
+        isPlayerX = !isPlayerX;
       }
-    }
-
-    function checkEndGame(oco) {
-      return endGameVertical(oco) || endGameHorizontal(oco) || endGamePrimary(oco) || endGameSub(oco);
-    }
-
-    function endGameVertical(oco) {
-      let endGameLeft = 0;
-      let endGameRight = 0;
-      for(let i = oco.x; i >= 0; i--) {
-        if(board.banco[oco.y][i].value === oco.value) {
-          endGameLeft++;
-        }else break;
+      if (caro.isGameOver()) {
+        setTimeout(() => {
+          if (confirm('Hòa nhau rồi! Chơi lại nha?')) {
+            caro.renderChessBoard();
+            board.chessBoard = [...caro.getChessBoard()];
+          }
+          return;
+        }, 1000);
       }
-      for(let i = oco.x + 1; i < 9; i++) {
-        if(board.banco[oco.y][i].value === oco.value) {
-          endGameRight++;
-        }else break;
+      if (isPlayerX) {
+        caro.minimax(0, caro.PLAYER_X);
+        caro.placeAMove(caro.computerMove, caro.PLAYER_X);
+        board.chessBoard = [...caro.getChessBoard()];
+        if (caro.hasPlayerWon(caro.PLAYER_X)) {
+          setTimeout(() => {
+            if (confirm('Bạn thua rồi! Chơi lại không?')) {
+              caro.renderChessBoard();
+              board.chessBoard = [...caro.getChessBoard()];
+            }
+            return;
+          }, 1000);
+        }
+        isPlayerX = !isPlayerX;
       }
-      return endGameLeft + endGameRight >= 5;
-    }
-    function endGameHorizontal(oco) {
-      let endGameTop = 0;
-      let endGameBottom = 0;
-      for(let i = oco.y; i >= 0; i--) {
-        if(board.banco[i][oco.x].value === oco.value) {
-          endGameTop++;
-        }else break;
-      }
-      for(let i = oco.y + 1; i < 9; i++) {
-        if(board.banco[i][oco.x].value === oco.value) {
-          endGameBottom++;
-        }else break;
-      }
-      return endGameTop + endGameBottom >= 5;
-    }
-    function endGamePrimary(oco) {
-      let endGameTop = 0;
-      let endGameBottom = 0;
-      for(let i = 0; i < 9; i++) {
-        if( oco.y - i < 0 || oco.x - i < 0) break;
-        if(board.banco[oco.y - i][oco.x - i].value === oco.value) {
-          endGameTop++;
-        }else break;
-      }
-      for(let i = 1; i < 9; i++) {
-        if( oco.y + i >= 9 || oco.x + i >= 9) break;
-        if(board.banco[oco.y + i][oco.x + i].value === oco.value) {
-          endGameBottom++;
-        }else break;
-      }
-      console.log(endGameTop + endGameBottom)
-      return endGameTop + endGameBottom >= 5;
-    }
-    function endGameSub(oco) {
-      let endGameTop = 0;
-      let endGameBottom = 0;
-      for(let i = 0; i < 9; i++) {
-        if( oco.y + i >= 9 || oco.x - i < 0) break;
-        if(board.banco[oco.y + i][oco.x - i].value === oco.value) {
-          endGameTop++;
-        }else break;
-      }
-      for(let i = 1; i < 9; i++) {
-        if( oco.y - i < 0 || oco.x + i >= 9) break;
-        if(board.banco[oco.y - i][oco.x + i].value === oco.value) {
-          endGameBottom++;
-        }else break;
-      }
-      console.log(endGameTop + endGameBottom)
-      return endGameTop + endGameBottom >= 5;
     }
     return { email, board, emailValueChange, handleClickRegister, handleClickBack, itemClick }
   }
@@ -155,6 +106,7 @@ export default {
 .row {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .form {
