@@ -8,30 +8,19 @@
       <ButtonControl @buttonClick="handleClickBack()" :label="'Trở lại'" type="secondary" />
     </div>
   </form>
-  <div class="container">
-    <div class="row" v-for="(items, index) in board.chessBoard" :key="index">
-      <div class="column" v-for="(item, indexItem) in items" :key="indexItem" @click="itemClick(item)">
-        {{ item.value }}
-      </div>
-    </div>
-  </div>
 </template>
 <script>
 import InputControl from '@/components/shared/InputControl.vue';
 import ButtonControl from '@/components/shared/ButtonControl.vue';
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import router from '@/router';
-import { CaroGame } from '@/utils/caro-game';
 export default {
   name: 'MobileForgetPasswordView',
   components: { InputControl, ButtonControl, MobileHeader },
   setup() {
-    const caro = new CaroGame();
-    caro.renderChessBoard()
     const email = ref('a@gmail.com');
-    const board = reactive({ chessBoard: caro.getChessBoard() });
-    let isPlayerX = false;
+
     function emailValueChange(value) {
       console.log(value)
     }
@@ -41,48 +30,7 @@ export default {
     function handleClickBack() {
       router.back();
     }
-
-    function itemClick(chessBox) {
-      if (!isPlayerX) {
-        caro.placeAMove(chessBox, caro.PLAYER_O);
-        board.chessBoard = [...caro.getChessBoard()];
-        if (caro.hasPlayerWon(caro.PLAYER_O)) {
-          setTimeout(() => {
-            if (confirm('Bạn hay quá! Chơi lại nha.')) {
-              caro.renderChessBoard();
-              board.chessBoard = [...caro.getChessBoard()];
-            }
-            return;
-          }, 1000);
-        }
-        isPlayerX = !isPlayerX;
-      }
-      if (caro.isGameOver()) {
-        setTimeout(() => {
-          if (confirm('Hòa nhau rồi! Chơi lại nha?')) {
-            caro.renderChessBoard();
-            board.chessBoard = [...caro.getChessBoard()];
-          }
-          return;
-        }, 1000);
-      }
-      if (isPlayerX) {
-        caro.minimax(0, caro.PLAYER_X);
-        caro.placeAMove(caro.computerMove, caro.PLAYER_X);
-        board.chessBoard = [...caro.getChessBoard()];
-        if (caro.hasPlayerWon(caro.PLAYER_X)) {
-          setTimeout(() => {
-            if (confirm('Bạn thua rồi! Chơi lại không?')) {
-              caro.renderChessBoard();
-              board.chessBoard = [...caro.getChessBoard()];
-            }
-            return;
-          }, 1000);
-        }
-        isPlayerX = !isPlayerX;
-      }
-    }
-    return { email, board, emailValueChange, handleClickRegister, handleClickBack, itemClick }
+    return { email, emailValueChange, handleClickRegister, handleClickBack }
   }
 }
 </script>

@@ -14,6 +14,7 @@ import SettingView from '../views/MobileSettingView.vue'
 import MobileRegisterView from '../views/MobileRegisterView'
 import MobileLoginView from '../views/MobileLoginView'
 import MobileForgetPasswordView from '../views/MobileForgetPasswordView'
+import GameView from '../views/GameView'
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
         path: '/register',
         name: 'register',
         component: MobileRegisterView,
+      },
+      {
+        path: '/game',
+        name: 'game',
+        component: GameView,
       },
       {
         path: '/login',
