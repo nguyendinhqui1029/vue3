@@ -55,7 +55,7 @@ export class GomokuGame {
   }
 
   pointClick(point) {
-    if(this.isGameOver) return;
+    if(this.isGameOver || this.board[point.x][point.y].value !== 0) return;
     this.board[point.x][point.y].setState(true);
 		if (this.getScore(this.getMatrixBoard(), true, false) >= this.winScore) {
 			this.playerWin = true;
