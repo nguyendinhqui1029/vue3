@@ -58,12 +58,6 @@ export class GomokuGame {
 
   pointClick(point) {
     if(this.isGameOver || this.board[point.x][point.y].value !== 0) return;
-    this.board[point.x][point.y].setState(true);
-		if (this.getScore(this.getMatrixBoard(), true, false) >= this.winScore) {
-			this.playerWin = true;
-      this.markCellWon(point,point.value);
-			return;
-		}
     const matrix = this.getMatrixBoard();
     for(let i = 0; i < matrix.length; i++) {
       this.isDraw = true;
@@ -72,17 +66,28 @@ export class GomokuGame {
         break;
       }
     }
+    this.board[point.x][point.y].setState(true);
+		if (this.getScore(this.getMatrixBoard(), true, false) >= this.winScore) {
+			this.playerWin = true;
+      this.markCellWon(point,point.value);
+      this.isGameOver = this.isDraw || this.aiWin || this.playerWin;
+			return;
+		}
 		let nextMoveX = 0 , nextMoveY = 0;
 		let bestMove = this.calcNextMove(3);
 		if (bestMove != null) {
 			nextMoveX = bestMove[0];
 			nextMoveY = bestMove[1];
-		}
+		}else {
+      console.log(bestMove)
+    }
 		
 		this.board[nextMoveX][nextMoveY].setState(false);
 		if (this.getScore(this.getMatrixBoard(), false, true) >= this.winScore) {
 			this.aiWin = true;
       this.markCellWon(this.board[nextMoveX][nextMoveY],this.board[nextMoveX][nextMoveY]  .value);
+      this.isGameOver = this.isDraw || this.aiWin || this.playerWin;
+      return;
 		}
     this.isGameOver = this.isDraw || this.aiWin || this.playerWin;
 	}
@@ -569,7 +574,7 @@ export class GomokuGame {
     let clockDiagonalSubRight = false;
     let blockDiagonalSubRight = false;
     for(let i= 0; i < this.col; i++) {
-      if(point.x + i > this.col || point.y - i < 0) break;
+      if(point.x + i >= this.col || point.y - i < 0) break;
       if(matrix[point.x + i][point.y - i] === turn) {
         wonDiagonalSubLeft++;
         positionChessWon.push({x: point.x + i, y: point.y - i});

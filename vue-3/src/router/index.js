@@ -15,6 +15,8 @@ import MobileRegisterView from '../views/MobileRegisterView'
 import MobileLoginView from '../views/MobileLoginView'
 import MobileForgetPasswordView from '../views/MobileForgetPasswordView'
 import GameView from '../views/GameView'
+import GomokuGame from '@/views/GomokuGame'
+import ChineseChess from '@/views/ChineseChess'
 
 const routes = [
   {
@@ -68,6 +70,16 @@ const routes = [
         path: '/game',
         name: 'game',
         component: GameView,
+      },
+      {
+        path: '/gomoku-game',
+        name: 'gomoku-game',
+        component: GomokuGame,
+      },
+      {
+        path: '/chinese-chess',
+        name: 'chinese-chess',
+        component: ChineseChess,
       },
       {
         path: '/login',
