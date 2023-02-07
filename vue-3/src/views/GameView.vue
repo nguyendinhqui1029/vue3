@@ -1,146 +1,89 @@
 <template>
   <MobileHeader menuType="back-menu" />
   <div class="container">
-    <div class="row" v-for="(items, index) in board.chessBoard" :key="index">
-      <div :class="{'column': true, [item.icon]: true,'won': item.markWon}" v-for="(item, indexItem) in items" :key="indexItem" @click="itemClick(item)">
+    <router-link to="gomoku-game">
+      <div class="item">
+        <div class="logo" :style="{ 'background-image': 'url(' + require('../assets/images/gomoku-game.png') + ')' }"></div>
+        <small class="title-game">Caro</small>
       </div>
-    </div>
-    <div class="result" v-if="isGameOver">
-      <span class="message">{{ message }}</span>
-      <div class="button-group">
-        <ButtonControl label="Chơi lại" @buttonClick="newGame()" />
-        <ButtonControl label="Thoát game" type="secondary" @buttonClick="back()" />
+    </router-link>
+    <router-link to="/chinese-chess">
+      <div class="item">
+        <div class="logo"> Cờ tướng</div>
+        <small class="title-game">Cờ tướng</small>
       </div>
-    </div>
+    </router-link>
+    <router-link to="/chinese-chess">
+      <div class="item">
+        <div class="logo"> game 1</div>
+        <small class="title-game">Tên game</small>
+      </div>
+    </router-link>
+    <router-link to="/chinese-chess">
+      <div class="item">
+        <div class="logo"> game 1</div>
+        <small class="title-game">Tên game</small>
+      </div>
+    </router-link>
+    <router-link to="/chinese-chess">
+      <div class="item">
+        <div class="logo"> game 1</div>
+        <small class="title-game">Tên game</small>
+      </div>
+    </router-link>
   </div>
 </template>
 <script>
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
-import { reactive, ref } from 'vue';
-import { GomokuGame } from '@/utils/gomoku-game';
-import ButtonControl from '@/components/shared/ButtonControl.vue';
-import router from '@/router';
 export default {
   name: 'GameView',
-  components: { MobileHeader, ButtonControl },
+  components: { MobileHeader },
   setup() {
-    const isGameOver = ref(false);
-    const message = ref('');
-    const gomokuGame = new GomokuGame();
-    gomokuGame.initializeBoard();
-    const board = reactive({ chessBoard: gomokuGame.board });
 
-    function itemClick(chessBox) {
-      gomokuGame.pointClick(chessBox);
-      board.chessBoard = [...gomokuGame.board];
-      isGameOver.value = gomokuGame.isGameOver;
-      if (gomokuGame.aiWin) {
-        message.value = 'Bạn đã thua! Xin mời bạn chơi lại trận mới.'
-      } else if (gomokuGame.playerWin) {
-        message.value = 'Chúc mừng bạn đã chiến thắng! Bạn thật tài.'
-      } else if (gomokuGame.isDraw) {
-        message.value = 'Chúng ta ngang tài ngang sức. Đấu lại thôi nào.'
-      }
-    }
-
-    function newGame() {
-      gomokuGame.reNewGame();
-      board.chessBoard = [...gomokuGame.board];
-      isGameOver.value = false;
-    }
-    function back() {
-      router.back();
-    }
-    return { message, isGameOver, board, itemClick, newGame, back }
   }
 }
 </script>
 
 <style scoped>
-.won {
-  background: yellow;
+a {
+  text-decoration: none;
 }
-.message {
-  font-size: 25px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+.title-game {
   text-align: center;
-  color: blueviolet;
-  padding: 16px;
-  z-index: 10;
-}
-.active-o::before {
-  content: '';
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid red;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--four-color);
 }
 
-.active-x::before {
-  content: '';
-  width: 25px;
-  height: 3px;
-  background: blue;
-  transform: rotate(-45deg);
-}
-.active-x::after {
-  content: '';
-  width: 25px;
-  height: 3px;
-  background: blue;
-  transform: rotate(45deg);
-  position: absolute
-}
-
-
-.button-group {
-  display: grid;
-  grid-template-columns: 120px 120px;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 20px;
-}
-
-.result {
-  position: absolute;
-  z-index: 5;
-  align-items: center;
-  justify-content: center;
+.item {
   display: flex;
   flex-direction: column;
-  width: 100%;
+}
+
+.logo {
+  border-radius: 10px;
+  height: 80px;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 4px 2px var(--three-color);
+  color: var(--four-color);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.column {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid black;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.form {
   padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: 80px 80px 80px 80px;
+  grid-template-rows: auto;
+  gap: 12px;
 }
 </style>
