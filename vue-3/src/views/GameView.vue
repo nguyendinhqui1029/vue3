@@ -13,10 +13,10 @@
         <small class="title-game">Cờ tướng</small>
       </div>
     </router-link>
-    <router-link to="/chinese-chess">
+    <router-link to="/bar-game">
       <div class="item">
-        <div class="logo"> game 1</div>
-        <small class="title-game">Tên game</small>
+        <div class="logo"> Bar</div>
+        <small class="title-game">Bar game</small>
       </div>
     </router-link>
     <router-link to="/chinese-chess">

@@ -30,6 +30,15 @@ export default {
 }
 </script>
 <style scoped>
+.menu-item:nth-child(3) {
+  border-radius: 50%;
+  margin-bottom: 50px;
+  width: 80px;
+  height: 80px;
+  box-shadow: 0px 0px 1px 5px;
+  background-color: var(--primary-color);
+}
+
 .menu-wrapper {
   display: flex;
   flex-direction: row;
@@ -38,6 +47,7 @@ export default {
   padding: 0;
   list-style: none;
   height: 55px;
+  background: var(--primary-color);
 }
 
 .menu-item {

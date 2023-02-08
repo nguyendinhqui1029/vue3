@@ -37,20 +37,20 @@ export default {
   setup() {
     const chessImage = reactive({
       image: {
-        'general-black': require('@/assets/images/general-black.png'),
-        'advisor-black': require('@/assets/images/advisor-black.png'),
-        'cannon-black': require('@/assets/images/cannon-black.png'),
-        'chariot-black': require('@/assets/images/chariot-black.png'),
-        'elephant-black': require('@/assets/images/elephant-black.png'),
-        'horse-black': require('@/assets/images/horse-black.png'),
-        'soldier-black': require('@/assets/images/soldier-black.png'),
-        'general-red': require('@/assets/images/general-red.png'),
-        'advisor-red': require('@/assets/images/advisor-red.png'),
-        'cannon-red': require('@/assets/images/cannon-red.png'),
-        'chariot-red': require('@/assets/images/chariot-red.png'),
-        'elephant-red': require('@/assets/images/elephant-red.png'),
-        'horse-red': require('@/assets/images/horse-red.png'),
-        'soldier-red': require('@/assets/images/soldier-red.png')
+        'general-black': require('@/utils/chinese-chess/images/general-black.svg'),
+        'advisor-black': require('@/utils/chinese-chess/images/advisor-black.svg'),
+        'cannon-black': require('@/utils/chinese-chess/images/cannon-black.svg'),
+        'chariot-black': require('@/utils/chinese-chess/images/chariot-black.svg'),
+        'elephant-black': require('@/utils/chinese-chess/images/elephant-black.svg'),
+        'horse-black': require('@/utils/chinese-chess/images/horse-black.svg'),
+        'soldier-black': require('@/utils/chinese-chess/images/soldier-black.svg'),
+        'general-red': require('@/utils/chinese-chess/images/general-red.svg'),
+        'advisor-red': require('@/utils/chinese-chess/images/advisor-red.svg'),
+        'cannon-red': require('@/utils/chinese-chess/images/cannon-red.svg'),
+        'chariot-red': require('@/utils/chinese-chess/images/chariot-red.svg'),
+        'elephant-red': require('@/utils/chinese-chess/images/elephant-red.svg'),
+        'horse-red': require('@/utils/chinese-chess/images/horse-red.svg'),
+        'soldier-red': require('@/utils/chinese-chess/images/soldier-red.svg')
       }
     });
     const chineseChessGame = new ChineseChessGame();
@@ -75,6 +75,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 110%;
+  border-radius: 50%;
 }
 
 .row-board {

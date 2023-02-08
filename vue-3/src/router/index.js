@@ -17,6 +17,8 @@ import MobileForgetPasswordView from '../views/MobileForgetPasswordView'
 import GameView from '../views/GameView'
 import GomokuGame from '@/views/GomokuGame'
 import ChineseChess from '@/views/ChineseChess'
+import BarGame from '@/views/BarGame'
+import MobileReceiveCoinView from '@/views/MobileReceiveCoinView'
 
 const routes = [
   {
@@ -33,6 +35,11 @@ const routes = [
         path: '/detail/:id',
         name: 'detail',
         component: MobileDetailView,
+      },
+      {
+        path: '/receive-coin',
+        name: 'receive-coin',
+        component: MobileReceiveCoinView,
       },
       {
         path: '/music',
@@ -80,6 +87,11 @@ const routes = [
         path: '/chinese-chess',
         name: 'chinese-chess',
         component: ChineseChess,
+      },
+      {
+        path: '/bar-game',
+        name: 'bar-game',
+        component: BarGame,
       },
       {
         path: '/login',
