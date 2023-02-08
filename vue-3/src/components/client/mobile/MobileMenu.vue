@@ -18,7 +18,7 @@ export default {
     watchEffect(() => {
       props.menuList.forEach(menuItem => {
         const isMatchPath = menuItem.url === router.currentRoute.value.path;
-        const isMatchQuery = menuItem.key.includes(router.currentRoute.value.query?.type);
+        const isMatchQuery = menuItem.key === router.currentRoute.value.query?.type;
         menuItem.isActive = isMatchPath || isMatchQuery;
       });
     });

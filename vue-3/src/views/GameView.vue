@@ -1,19 +1,19 @@
 <template>
   <MobileHeader menuType="back-menu" />
   <div class="container">
-    <router-link to="gomoku-game">
+    <router-link :to="{path:'/gomoku-game',query:{ type: 'game'}}">
       <div class="item">
         <div class="logo" :style="{ 'background-image': 'url(' + require('../assets/images/gomoku-game.png') + ')' }"></div>
         <small class="title-game">Caro</small>
       </div>
     </router-link>
-    <router-link to="/chinese-chess">
+    <router-link :to="{path:'/chinese-chess',query:{ type: 'game'}}">
       <div class="item">
         <div class="logo"> Cờ tướng</div>
         <small class="title-game">Cờ tướng</small>
       </div>
     </router-link>
-    <router-link to="/bar-game">
+    <router-link :to="{path:'/bar-game',query:{ type: 'game'}}">
       <div class="item">
         <div class="logo"> Bar</div>
         <small class="title-game">Bar game</small>
