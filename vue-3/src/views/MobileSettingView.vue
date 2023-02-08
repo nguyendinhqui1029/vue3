@@ -9,9 +9,6 @@
             <router-link class="router-link" to="register">Đăng kí</router-link>
           </li>
           <li>
-            <router-link class="router-link" to="game">Game</router-link>
-          </li>
-          <li>
             <router-link class="router-link" to="login">Đăng nhập</router-link>
           </li>
           <li>

@@ -19,7 +19,9 @@ export default {
     const menuItemList = reactive([
       { id: 1, url: '/', key: 'film', isActive: true, icon: 'tv', name: 'Phim' },
       { id: 2, url: '/story', key: 'story', isActive: false, icon: 'book-open', name: 'Truyện' },
-      { id: 3, url: '/music', key: 'music', isActive: false, icon: 'mic', name: 'Karaoke' }
+      { id: 3, url: '/receive-coin', key: 'receive-coin', isActive: false, icon: 'award', name: 'Cày xu' },
+      { id: 4, url: '/music', key: 'music', isActive: false, icon: 'mic', name: 'Karaoke' },
+      { id: 5, url: '/game', key: 'game', isActive: false, icon: 'airplay', name: 'Trò chơi' }
     ]);
     function menuItemClick(menu) {
       menuItemList.forEach(item => item.isActive = item.id === menu.id);
@@ -50,7 +52,6 @@ export default {
 
 .footer {
   width: 100%;
-  background: var(--primary-color);
   position: fixed;
   bottom: 0;
 }
