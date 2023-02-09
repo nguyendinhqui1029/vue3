@@ -3,11 +3,9 @@
   <div class="content">
     <div class="bar-container">
       <div class="bar-board">
-        <div v-for="n in 25" :key="n" :class="{ 'item': n !== 9, 'merge-cell': n === 9, 'item-nine': n === 9 }">
+        <div v-for="n in 25" :key="'bar-'+n" :class="{ 'item': n !== 9, 'merge-cell': n === 9, 'item-nine': n === 9 }">
           <span v-if="n !== 9" :class="{
-            'blue': (numberLight <= 22 && numberLight >= 2) && n === run[numberLight - 2],
-            'yellow': (numberLight <= 21 && numberLight >= 1) && n === run[numberLight - 1],
-            'red': n === run[numberLight],
+            'red': n === numberLight,
             'inner-item': true,
             'item-one': n === 1,
             'item-left': n === 8 || n === 11 || n === 13 || n === 15 || n === 17,
@@ -67,7 +65,7 @@
           <label class="title">Điểm thưởng:</label>
           <div class="award">{{ awardScore }}</div>
           <label class="title">Điểm bạn có:</label>
-          <div class="credit">{{ currentScore }}</div>
+          <div class="credit">{{ playerScore }}</div>
           <CircleButton type="text" label="Start" @buttonClick="start()" />
         </div>
       </div>
@@ -78,13 +76,14 @@
 <script>
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import CircleButton from '@/components/shared/CircleButton.vue';
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
+import { BarGame } from '@/utils/bar-game/bar-game';
 export default {
   name: 'BarGame',
   components: { MobileHeader, CircleButton },
   setup() {
+    const barGame = new BarGame();
     const content = ref('\'11\'');
-    const currentScore = ref(0);
     const awardScore = ref(0);
     const orange = ref(0);
     const toadFruit = ref(0);
@@ -95,65 +94,128 @@ export default {
     const sevenSeven = ref(0);
     const bar = ref(0);
     const numberLight = ref(1);
-    let run = reactive([1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 16, 18, 25, 24, 23, 22, 21, 20, 19, 17, 15, 13, 11, 8,
-      1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 16, 18, 25, 24, 23, 22, 21, 20, 19, 17, 15, 13, 11, 8]);
+    const disableStartButton = ref(false);
+    const playerScore = ref(100);
+
     function enterPoint(type) {
       switch (type) {
-        case 'orange': orange.value++;
+        case 'orange': {
+          if(playerScore.value > 0) {
+            orange.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, orange.value);
+          }
+        }
           break;
-        case 'toadFruit': toadFruit.value++;
+        case 'toadFruit':{
+          if(playerScore.value > 0) {
+            toadFruit.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, toadFruit.value);
+          }
+        } 
           break;
-        case 'apple': apple.value++;
+        case 'apple': {
+          if(playerScore.value > 0) {
+            apple.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, apple.value);
+          }
+        }
           break;
-        case 'bell': bell.value++;
+        case 'bell': {
+          if(playerScore.value > 0) {
+            bell.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, bell.value);
+          }
+        }
           break;
-        case 'star': star.value++;
+        case 'star': {
+          if(playerScore.value > 0) {
+            star.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, star.value);
+          }
+        }
           break;
-        case 'watermelon': watermelon.value++;
+        case 'watermelon': {
+          if(playerScore.value > 0) {
+            watermelon.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, watermelon.value);
+          }
+        }
           break;
-        case 'sevenSeven': sevenSeven.value++;
+        case 'sevenSeven': {
+          if(playerScore.value > 0) {
+            sevenSeven.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, sevenSeven.value);
+          }
+        }
           break;
-        case 'bar': bar.value++;
+        case 'bar': {
+          if(playerScore.value > 0) {
+            bar.value++;
+            playerScore.value = playerScore.value - 1;
+            barGame.setItemPlayerSelected(type, bar.value);
+          }
+        }
           break;
       }
     }
 
     async function start() {
-      let startNumber = 0;
-      const end = (Math.round(Math.random()*26 + 24));
-      run = (Math.round(Math.random() + 1)) % 2 === 0 ? run.reverse() : run;
-      while (startNumber < end) {
-        await sleep(25*(end - startNumber)+10);  
-        numberLight.value = startNumber;
-        startNumber++;
+      if(awardScore.value) {
+        playerScore.value += awardScore.value;
+        awardScore.value = 0;
+        return;
       }
+      
+      if(!disableStartButton.value && (playerScore.value || !isAmountEmpty())) {
+        const boardValue = barGame.boardRun('hight');
+        let i = 0;
+        while (i < boardValue.length) {
+          disableStartButton.value = true;
+          const timer = 200;
+          await barGame.sleep(timer);  
+          numberLight.value = boardValue[i];
+          i++;
+        }
+        disableStartButton.value = false;
+        awardScore.value = barGame.getTotalScore();
+        clearAmount();
+        barGame.resetSelectedItem();
+      }else return;
     }
 
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+    function isAmountEmpty() {
+      return !orange.value && !apple.value && !toadFruit.value && !bell.value
+      && !sevenSeven.value && !star.value && !bar.value && !watermelon.value;
     }
-    return {
-      run, content, enterPoint, orange, toadFruit, bell, apple,
-      star, sevenSeven, bar, watermelon, currentScore, awardScore, numberLight, start
+    function clearAmount() {
+      orange.value = 0;
+      apple.value = 0;
+      toadFruit.value = 0;
+      bell.value = 0;
+      sevenSeven.value = 0;
+      star.value = 0;
+      bar.value = 0;
+      watermelon.value = 0;
+    }
+    
+    return {content, playerScore, orange, toadFruit, bell, apple,
+      star, sevenSeven, bar, watermelon, awardScore, numberLight, start, enterPoint
     };
   }
 }
 </script>
 
 <style scoped>
-.yellow {
-  background-color: yellow !important;
-  transition: background-color 0.3s ease-in;
-}
-
-.blue {
-  background-color: blue !important;
-  transition: background-color 0.3s ease-in;
-}
-
 .red {
   background-color: red !important;
-  transition: background-color 0.3s ease-in;
+  transition: background-color 0.2s ease-in;
 }
 .title {
   font-size: 10px;
