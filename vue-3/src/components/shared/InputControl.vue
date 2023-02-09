@@ -45,6 +45,7 @@ export default {
   border: none;
   background: transparent;
   text-indent: 16px;
+  user-select: none;
  }
  .input:focus {
   outline: none;

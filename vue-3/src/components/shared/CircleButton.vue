@@ -76,10 +76,10 @@ export default {
   border-radius: 50%;
   border: 1px solid;
   background: #0B81FF;
+  user-select: none;
  }
 
  .disabled {
-  opacity: 0.5;
   cursor: default;
  }
 </style>

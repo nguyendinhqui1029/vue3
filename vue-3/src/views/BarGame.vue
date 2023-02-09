@@ -15,7 +15,7 @@
             'item-top': n === 2 || n === 3 || n === 4 || n === 5 || n === 6,
             'item-right': n === 10 || n === 12 || n === 14 || n === 16 || n === 18,
             'item-bottom': n === 20 || n === 21 || n === 22 || n === 23 || n === 24
-          }"></span>
+          }">{{ n }}</span>
         </div>
       </div>
       <div class="control-board">
@@ -25,19 +25,19 @@
           <div class="amount">{{ apple }}</div>
           <div class="amount">{{ bell }}</div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/cam.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/cam.png')"
               @buttonClick="enterPoint('orange')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/coc.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/coc.png')"
               @buttonClick="enterPoint('toadFruit')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/tao.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/tao.png')"
               @buttonClick="enterPoint('apple')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/chuong.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/chuong.png')"
               @buttonClick="enterPoint('bell')" />
           </div>
           <div class="amount">{{ star }}</div>
@@ -45,19 +45,19 @@
           <div class="amount">{{ sevenSeven }}</div>
           <div class="amount">{{ bar }}</div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/dua-hau.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/dua-hau.png')"
               @buttonClick="enterPoint('star')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/sao.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/sao.png')"
               @buttonClick="enterPoint('watermelon')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/77.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/77.png')"
               @buttonClick="enterPoint('sevenSeven')" />
           </div>
           <div class="item-control">
-            <CircleButton type="image" :urlImage="require('@/utils/bar-game/images/bar.png')"
+            <CircleButton :isDisabled="disableStartButton" type="image" :urlImage="require('@/utils/bar-game/images/bar.png')"
               @buttonClick="enterPoint('bar')" />
           </div>
         </div>
@@ -96,11 +96,55 @@ export default {
     const numberLight = ref(1);
     const disableStartButton = ref(false);
     const playerScore = ref(100);
-
+    function setAmountForItem(type, amount) {
+      switch (type) {
+        case 'orange': {
+          orange.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'toadFruit': {
+          toadFruit.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'apple': {
+          apple.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'bell': {
+          bell.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'star': {
+          star.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'watermelon': {
+          watermelon.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'sevenSeven': {
+          sevenSeven.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+        case 'bar': {
+          bar.value = amount;
+          playerScore.value -= amount;
+        }
+          break;
+      }
+    }
     function enterPoint(type) {
       switch (type) {
         case 'orange': {
           if(playerScore.value > 0) {
+            if(orange.value >= 150) return;
             orange.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, orange.value);
@@ -109,6 +153,7 @@ export default {
           break;
         case 'toadFruit':{
           if(playerScore.value > 0) {
+            if(toadFruit.value >= 150) return;
             toadFruit.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, toadFruit.value);
@@ -117,6 +162,7 @@ export default {
           break;
         case 'apple': {
           if(playerScore.value > 0) {
+            if(apple.value >= 150) return;
             apple.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, apple.value);
@@ -125,6 +171,7 @@ export default {
           break;
         case 'bell': {
           if(playerScore.value > 0) {
+            if(bell.value >= 150) return;
             bell.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, bell.value);
@@ -133,6 +180,7 @@ export default {
           break;
         case 'star': {
           if(playerScore.value > 0) {
+            if(star.value >= 150) return;
             star.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, star.value);
@@ -141,6 +189,7 @@ export default {
           break;
         case 'watermelon': {
           if(playerScore.value > 0) {
+            if(watermelon.value >= 150) return;
             watermelon.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, watermelon.value);
@@ -149,6 +198,7 @@ export default {
           break;
         case 'sevenSeven': {
           if(playerScore.value > 0) {
+            if(sevenSeven.value >= 150) return;
             sevenSeven.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, sevenSeven.value);
@@ -157,6 +207,7 @@ export default {
           break;
         case 'bar': {
           if(playerScore.value > 0) {
+            if(bar.value >= 150) return;
             bar.value++;
             playerScore.value = playerScore.value - 1;
             barGame.setItemPlayerSelected(type, bar.value);
@@ -172,9 +223,14 @@ export default {
         awardScore.value = 0;
         return;
       }
-      
+      if(isAmountEmpty() &&  barGame.isScorePlayerBiggerScoreItemSelected(playerScore.value)) {
+        barGame.getPreviousItemPlayerSelected().forEach((item,index)=>{
+          setAmountForItem(item.type, item.amount);
+          barGame.itemPlayerSelected[index].amount = item.amount;
+        })
+      }
       if(!disableStartButton.value && (playerScore.value || !isAmountEmpty())) {
-        const boardValue = barGame.boardRun('hight');
+        const boardValue = barGame.boardRun('medium');
         let i = 0;
         while (i < boardValue.length) {
           disableStartButton.value = true;
@@ -205,7 +261,7 @@ export default {
       watermelon.value = 0;
     }
     
-    return {content, playerScore, orange, toadFruit, bell, apple,
+    return {disableStartButton, content, playerScore, orange, toadFruit, bell, apple,
       star, sevenSeven, bar, watermelon, awardScore, numberLight, start, enterPoint
     };
   }
