@@ -1,7 +1,8 @@
 export const LEVEL = {
-  normal: [1,2,22,7,3,10,25,4,24,19,17,11],
-  medium: [1,8,7,12,18,23,19,3,17,15,16],
-  hight: [6,12,18,23,20,15,8,22,25]
+  normal: [1,2,22,7,3,10,25,4,24,19,17,11, 5],
+  medium: [1,8,7,12,18,23,19,5,17,15,16,3],
+  perfectly: [6,12,18,23,20,15,8,22,25, 5],
+  strongly: [8, 6, 12, 18, 23, 20, 15]
 };
 
 export const BAR_LAYOUT = [
@@ -31,3 +32,5 @@ export const AWARD = [
   { type: 'watermelon', amount: 0 },
   { type: 'sevenSeven', amount: 0},
   { type: 'bar', amount: 0}];
+
+  export const MAX_TURN_SCORE = [10,5,12,20,33,51];
