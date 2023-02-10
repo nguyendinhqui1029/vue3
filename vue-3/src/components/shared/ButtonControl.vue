@@ -45,6 +45,7 @@ export default {
   height: 40px;
   border-radius: 5px;
   cursor: pointer;
+  user-select: none;
  }
 
  .primary {

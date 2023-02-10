@@ -66,9 +66,11 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  user-select: none;
 }
 
 .content-wrapper small {
   color: var(--four-color);
+  user-select: none;
 }
 </style>

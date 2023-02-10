@@ -32,6 +32,7 @@
   .categories-wrapper h3 {
     color: var(--primary-color);
     margin: 10px 0;
+    user-select: none;
   }
   .categories-wrapper {
     display: flex;

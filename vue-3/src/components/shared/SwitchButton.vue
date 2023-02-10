@@ -48,6 +48,7 @@ export default {
 
  .switch-wrapper small {
    padding: 7px;
+   user-select: none;
  }
  .in-active {
   animation: in-active 0.5s ease;
