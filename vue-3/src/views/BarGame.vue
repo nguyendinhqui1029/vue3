@@ -322,6 +322,7 @@ export default {
   font-size: 10px;
   text-align: left;
   width: 100%;
+  user-select: none;
 }
 
 .wrapper {
@@ -356,6 +357,7 @@ export default {
   align-items: center;
   font-size: 17px;
   line-height: 40px;
+  user-select: none;
 }
 
 .button-wrapper {
@@ -373,6 +375,8 @@ export default {
   padding: 16px;
   border-radius: 10px;
   box-shadow: 1px 4px 6px var(--four-color);
+  width: 322px;
+  margin: auto;
 }
 
 .item-nine::after {
@@ -466,16 +470,192 @@ export default {
 
 .bar-board {
   display: grid;
-  width: 360px;
+  width: 357px;
   height: 370px;
   background-image: url('@/utils/bar-game/images/bar-board.png');
   background-position: inherit;
   background-repeat: no-repeat;
   background-size: contain;
-  grid-template-columns: 51px 51px 51px 51px 51px 51px 51px;
-  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-columns: repeat( 7, 50px );
+  grid-template-rows: repeat( 7, 49px );
   gap: 1.5px 0.5px;
   grid-column-start: 1;
   grid-column-end: 9;
+  margin: auto;
+}
+
+@media only screen and (max-width: 280px) {
+  .amount {
+    font-size: 12px;
+  }
+
+  .button-wrapper {
+    display: grid;
+    grid-template-columns: 40px 40px 40px 40px;
+    grid-template-rows: 20px 40px 20px 40px;
+    gap: 5px;
+  }
+  .title {
+    font-size: 8px;
+}
+
+.award, .credit {
+  width: 55px;
+    line-height: 37px;
+    height: 20px;
+    font-size: 12px;
+}
+.control-board {
+    width: 235px;
+    padding: 5px;
+}
+
+.wrapper {
+    gap: 5px;
+}
+
+.bar-board {
+    width: 245px;
+    height: 257px;
+    grid-template-columns: repeat( 7, 34px );
+    grid-template-rows: repeat( 7, 34px );
+    gap: 0.5px;
+  }
+.item {
+  width: 100%;
+  height: 100%;
+}
+
+.inner-item {
+    width: 15px;
+    height: 15px;
+}
+.item-bottom {
+    left: 10px;
+    top: -8px;
+}
+.item-seven {
+    left: -8px;
+    bottom: -8px;
+}
+.item-top {
+    right: 9px;
+    bottom: -5px;
+}
+.item-one {
+    right: -8px;
+    bottom: -5px;
+}
+.item-nine::after {
+    bottom: 22px;
+    left: 70px;
+    width: 34px !important;
+    height: 19px !important;
+    font-size: 18px;
+}
+.item-nine-teen {
+    right: -8px;
+    top: -8px;
+}
+.item-twenty-five {
+    left: -8px;
+    top: -8px;
+}
+.item-left {
+    top: 8px;
+    right: -8px;
+}
+.item-right {
+    left: -8px;
+    top: 8px;
+}
+}
+
+@media only screen and (max-width: 360px) {
+.amount {
+  font-size: 12px;
+}
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: 40px 40px 40px 40px;
+  grid-template-rows: 20px 40px 20px 40px;
+  gap: 5px;
+}
+.title {
+  font-size: 8px;
+}
+
+.award, .credit {
+  width: 55px;
+  line-height: 37px;
+  height: 20px;
+  font-size: 12px;
+}
+.control-board {
+  width: 235px;
+  padding: 13px;
+  margin-top: 15px;
+}
+
+.wrapper {
+  gap: 5px;
+}
+
+.bar-board {
+  width: 257px;
+  height: 257px;
+  grid-template-columns: repeat( 7, 36px );
+  grid-template-rows: repeat( 7, 36px );
+  gap: 0.5px;
+}
+.item {
+width: 100%;
+height: 100%;
+}
+
+.inner-item {
+  width: 15px;
+  height: 15px;
+}
+.item-bottom {
+  left: 10px;
+  top: -8px;
+}
+.item-seven {
+  left: -8px;
+  bottom: -8px;
+}
+.item-top {
+  right: 9px;
+  bottom: -5px;
+}
+.item-one {
+  right: -8px;
+  bottom: -5px;
+}
+.item-nine::after {
+  bottom: 22px;
+  left: 70px;
+  width: 34px !important;
+  height: 19px !important;
+  font-size: 18px;
+}
+.item-nine-teen {
+  right: -8px;
+  top: -8px;
+}
+.item-twenty-five {
+  left: -8px;
+  top: -8px;
+}
+.item-left {
+  top: 8px;
+  right: -8px;
+}
+.item-right {
+  left: -8px;
+  top: 8px;
+}
 }
 </style>

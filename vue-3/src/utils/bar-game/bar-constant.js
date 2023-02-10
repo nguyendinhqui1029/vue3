@@ -32,5 +32,5 @@ export const AWARD = [
   { type: 'watermelon', amount: 0 },
   { type: 'sevenSeven', amount: 0},
   { type: 'bar', amount: 0}];
-
-  export const MAX_TURN_SCORE = [10,5,12,20,33,51];
+//[10,5,12,20,33,51]
+  export const MAX_TURN_SCORE = [2,2,2,2,2,2];

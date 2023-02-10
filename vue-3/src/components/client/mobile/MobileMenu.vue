@@ -30,6 +30,7 @@ export default {
 }
 </script>
 <style scoped>
+
 .menu-item:nth-child(3) {
   border-radius: 50%;
   margin-bottom: 50px;
@@ -66,5 +67,15 @@ export default {
 
 .active {
   color: var(--three-color);
+}
+
+@media only screen and (max-width: 280px) {
+  .menu-item:nth-child(3) {
+    margin-bottom: 33px;
+    height: 55px;
+  }
+  .menu-item {
+    font-size: 12px;
+  }
 }
 </style>

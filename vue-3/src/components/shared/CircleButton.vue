@@ -1,13 +1,13 @@
 <template>
-  <div v-if="type === null" :class="{button: true}">
-    <div class="inner" :class="{disabled: isDisabled}" @click="buttonClick()"></div>
+  <div v-if="type === null" :class="{ button: true }">
+    <div class="inner" :class="{ disabled: isDisabled }" @click="buttonClick()"></div>
   </div>
-  <div v-if="type === 'image'" :class="{button: true}">
-    <div class="inner image" :style="{'background-image': 'url('+urlImage+')'}" :class="{disabled: isDisabled}"
-     @click="buttonClick()"></div>
+  <div v-if="type === 'image'" :class="{ button: true }">
+    <div class="inner image" :style="{ 'background-image': 'url(' + urlImage + ')' }" :class="{ disabled: isDisabled }"
+      @click="buttonClick()"></div>
   </div>
-  <div v-if="type === 'text'" :class="{button: true}">
-    <div class="inner text" :class="{disabled: isDisabled}" @click="buttonClick()">
+  <div v-if="type === 'text'" :class="{ button: true }">
+    <div class="inner text" :class="{ disabled: isDisabled }" @click="buttonClick()">
       {{ label }}
     </div>
   </div>
@@ -37,9 +37,9 @@ export default {
     }
   },
   emits: ["buttonClick"],
-  setup(props, context){
+  setup(props, context) {
     function buttonClick() {
-      if(!props.isDisabled) {
+      if (!props.isDisabled) {
         context.emit('buttonClick');
       }
     }
@@ -54,6 +54,7 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
 .inner {
   display: flex;
   justify-content: center;
@@ -67,7 +68,8 @@ export default {
   color: var(--second-color);
   font-size: 12px;
 }
- .button {
+
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,9 +79,35 @@ export default {
   border: 1px solid;
   background: #0B81FF;
   user-select: none;
- }
+}
 
- .disabled {
+.disabled {
   cursor: default;
- }
+}
+
+@media only screen and (max-width: 360px) {
+
+  .inner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .button {
+    width: 39px;
+    height: 39px;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+
+  .inner {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .button {
+    width: 39px !important;
+    height: 39px !important;
+  }
+}
 </style>
