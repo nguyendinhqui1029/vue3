@@ -167,14 +167,14 @@ export class ChineseChessGame {
       const item = chessBox.boxAllowMove.black.find(chessBlack=>chessBlack.start.x === chessBox.x && chessBlack.start.y === chessBox.y);
       if(item) {
         item.end.forEach(element => {
-          this.chessBoard[element.y][element.x].markMove = this.chessBoard[(element.y + chessBox.y)/2][(element.x + chessBox.x)/2].chessType === this.BOX_EMPTY && this.chessBoard[element.y][element.x].chessType !== chessBox.chessType;
+          this.chessBoard[element.y][element.x].markMove = this.chessBoard[element.y][element.x].chessType === this.BOX_EMPTY && this.chessBoard[element.y][element.x].chessType !== chessBox.chessType;
         });
       }
     }else if(chessBox.chessType === this.BOX_RED){
       const item = chessBox.boxAllowMove.red.find(item=>item.start.x === chessBox.x && item.start.y === chessBox.y);
       if(item) {
         item.end.forEach(element => {
-          this.chessBoard[element.y][element.x].markMove = this.chessBoard[(element.y + chessBox.y)/2][(element.x + chessBox.x)/2].chessType === this.BOX_EMPTY && this.chessBoard[element.y][element.x].chessType !== chessBox.chessType;
+          this.chessBoard[element.y][element.x].markMove = this.chessBoard[element.y][element.x].chessType === this.BOX_EMPTY && this.chessBoard[element.y][element.x].chessType !== chessBox.chessType;
         });
       }
     }else return;

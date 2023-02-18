@@ -1,59 +1,59 @@
 <template>
-    <div v-if="menuType === 'back-menu'" class="header-wrapper">
-      <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
+  <div v-if="menuType === 'back-menu'" class="header-wrapper">
+    <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
+    <vue-feather :type="'settings'" @click="navigateToSetting()"></vue-feather>
+  </div>
+  <div v-else-if="menuType === 'search-menu'" class="header-wrapper">
+    <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
+    <input type="text" class="input-search" v-model="valueInput" @input="event => valueInput = event.target.value" />
+    <vue-feather class="clear-icon" :type="'x'" @click="clearValue()"></vue-feather>
+  </div>
+  <div v-else class="header-wrapper">
+    <div class="logo"></div>
+    <div class="icon-group">
+      <vue-feather :type="'search'" @click="searchClick()"></vue-feather>
       <vue-feather :type="'settings'" @click="navigateToSetting()"></vue-feather>
     </div>
-    <div v-else-if="menuType === 'search-menu'" class="header-wrapper">
-      <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
-      <input type="text" class="input-search" v-model="valueInput" @input="event=>valueInput=event.target.value"/>
-      <vue-feather class="clear-icon" :type="'x'" @click="clearValue()"></vue-feather>
-    </div>
-    <div v-else class="header-wrapper">
-      <img class="logo" src="../../../assets/images/logo.png"/>
-      <div class="icon-group">
-        <vue-feather :type="'search'" @click="searchClick()"></vue-feather>
-        <vue-feather :type="'settings'" @click="navigateToSetting()"></vue-feather>
-      </div>
-    </div>
+  </div>
 </template>
 <script scope>
-  import router from '@/router';
-  import { watch, ref } from 'vue';
-  export default {
-    name: 'MobileHeader',
-    props:{
-      menuType: {
-        type: String,
-        default: 'main-menu',
-        validator: function (value) {
+import router from '@/router';
+import { watch, ref } from 'vue';
+export default {
+  name: 'MobileHeader',
+  props: {
+    menuType: {
+      type: String,
+      default: 'main-menu',
+      validator: function (value) {
         return [
           'main-menu',
           'back-menu',
           'search-menu'
         ].indexOf(value) !== -1
       }
-      }
-    },
-    setup() {
-      const valueInput = ref(router.currentRoute.value.query?.q || '');
-      watch(valueInput,()=>{
-        router.replace({path:'/search', query:{ q: valueInput.value, type: router.currentRoute.value.query.type}});
-      })
-      function navigateToSetting() {
-        router.push({path: '/setting', query: {type: router.currentRoute.value.query.type}});
-      }
-      function searchClick() {
-        router.push({path: '/search', query: {type: router.currentRoute.value.name}});
-      }
-      function back() {
-        router.back();
-      }
-      function clearValue() {
-        valueInput.value = '';
-      }
-      return { valueInput, back, searchClick, navigateToSetting, clearValue};
     }
+  },
+  setup() {
+    const valueInput = ref(router.currentRoute.value.query?.q || '');
+    watch(valueInput, () => {
+      router.replace({ path: '/search', query: { q: valueInput.value, type: router.currentRoute.value.query.type } });
+    })
+    function navigateToSetting() {
+      router.push({ path: '/setting', query: { type: router.currentRoute.value.query.type } });
+    }
+    function searchClick() {
+      router.push({ path: '/search', query: { type: router.currentRoute.value.name } });
+    }
+    function back() {
+      router.back();
+    }
+    function clearValue() {
+      valueInput.value = '';
+    }
+    return { valueInput, back, searchClick, navigateToSetting, clearValue };
   }
+}
 </script>
 <style scoped>
 .input-search {
@@ -71,23 +71,32 @@
   padding-right: 35px;
   position: relative;
 }
+
 .clear-icon {
   position: absolute;
   right: 25px;
   width: 30px;
   color: var(--primary-color);
 }
+
 .input-search:focus {
   outline: none;
 }
+
 .icon-group {
   display: flex;
   gap: 20px;
 }
+
 .logo {
   width: 70px;
-  height: 40px;
+  height: 70px;
+  background-image: url('../../../assets/images/logo/logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
+
 .header-wrapper {
   height: 50px;
   display: flex;
@@ -97,5 +106,4 @@
   padding: 0 16px;
   background: var(--primary-color);
   position: relative;
-}
-</style>
+}</style>

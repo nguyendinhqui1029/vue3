@@ -33,10 +33,16 @@
 import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import { ChineseChessGame } from '@/utils/chinese-chess/chinese-chess-game';
 import { reactive } from 'vue';
+import { Crypto } from '@/utils/crypto';
 export default {
   name: 'ChineseChess',
   components: { MobileHeader },
   setup() {
+    const crypto = new Crypto();
+    const encode = crypto.encode({id:1, win: true}, '123456789');
+    const decode = crypto.decode(encode, '123456789');
+    console.log(encode);
+    console.log(decode);
     const chessImage = reactive({
       image: {
         'general-black': require('@/utils/chinese-chess/images/general-black.svg'),
