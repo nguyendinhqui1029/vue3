@@ -1,14 +1,14 @@
 <template>
   <div class="input-wrapper">
     <label class="label">{{ label }}</label>
-      <input class="input" :type="type" :placeholder="placeholder" :value="initialValue" @input="inputValueChange($event)"/>
+      <input class="input" @input="$emit('update:modelValue',$event.target.value)" :type="type" :placeholder="placeholder" :value="modelValue"/>
   </div>
 </template>
 <script>
 export default {
   name: 'InputControl',
   props: {
-    initialValue: String,
+    modelValue: String,
     type: {
       type: String,
       default: 'text'
@@ -18,12 +18,6 @@ export default {
       require: true
     },
     placeholder: String
-  },
-  setup(props, context){
-    function inputValueChange(eventTarget) {
-      context.emit('valueChange', eventTarget.target.value);
-    }
-    return { inputValueChange }
   }
 }
 </script>

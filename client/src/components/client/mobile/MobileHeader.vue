@@ -89,8 +89,8 @@ export default {
 }
 
 .logo {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   background-image: url('../../../assets/images/logo/logo.png');
   background-position: center;
   background-repeat: no-repeat;

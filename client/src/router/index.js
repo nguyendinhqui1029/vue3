@@ -22,7 +22,17 @@ import MobileReceiveCoinView from '@/views/MobileReceiveCoinView'
 
 const routes = [
   {
-    path: '/',
+    path: '/register',
+    name: 'register',
+    component: MobileRegisterView,
+  },
+  {
+    path: '',
+    name: 'login',
+    component: MobileLoginView,
+  },
+  {
+    path: '/luck',
     name: 'layout',
     component: isMobileDevice() ? MobileLayoutView : LayoutView,
     children: [
@@ -69,11 +79,6 @@ const routes = [
         component: SettingView,
       },
       {
-        path: '/register',
-        name: 'register',
-        component: MobileRegisterView,
-      },
-      {
         path: '/game',
         name: 'game',
         component: GameView,
@@ -92,11 +97,6 @@ const routes = [
         path: '/bar-game',
         name: 'bar-game',
         component: BarGame,
-      },
-      {
-        path: '/login',
-        name: 'login',
-        component: MobileLoginView,
       },
       {
         path: '/forget-password',
