@@ -6,13 +6,15 @@ import '@/assets/css/style.css';
 import './registerServiceWorker'
 import YoutubeIframe from '@techassi/vue-youtube-iframe';
 import ScriptX from 'vue-scriptx';
-import Ads from 'vue-google-adsense'
+import Ads from 'vue-google-adsense';
+import VueCryptojs from 'vue-cryptojs';
 const app = createApp(App);
 app.component(VueFeather.name, VueFeather);
-app.use(ScriptX)
-app.use(Ads.Adsense)
-app.use(Ads.InArticleAdsense)
-app.use(Ads.InFeedAdsense)
+app.use(VueCryptojs);
+app.use(ScriptX);
+app.use(Ads.Adsense);
+app.use(Ads.InArticleAdsense);
+app.use(Ads.InFeedAdsense);
 app.use(YoutubeIframe);
 app.use(router);
 app.mount('#app');
