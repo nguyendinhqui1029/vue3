@@ -1,5 +1,5 @@
 <template>
- <QuillEditor v-model:content="content" :modules="modules" theme="snow" toolbar="#toolbar">
+ <QuillEditor ref="quillEditor" :modules="modules" theme="snow" toolbar="#toolbar">
   <template #toolbar>
     <div id="toolbar">
       <select class="ql-header">
@@ -86,7 +86,7 @@ import BlotFormatter from 'quill-blot-formatter/dist/BlotFormatter';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import '@vueup/vue-quill/dist/vue-quill.core.css';
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 export default {
   name: 'TextEditor',
   components: { QuillEditor },
@@ -94,15 +94,20 @@ export default {
     editorValue: String
   },
   setup(props, context){
-    const content = ref(props.editorValue)
+    const quillEditor = ref(null);
     const modules = {
       name: 'blotFormatter',
       module: BlotFormatter,
     }
+    onMounted(() => {
+      quillEditor.value.setHTML(props.editorValue);
+    })
+    
     function saveEvent() {
-      context.emit('saveValue', QuillEditor.root.innerHTML)
+      const value = quillEditor.value.getHTML();
+      context.emit('saveValue', value)
     }
-    return {modules, content, saveEvent};
+    return {quillEditor, modules, saveEvent};
   }
 }
 </script>

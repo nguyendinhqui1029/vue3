@@ -28,7 +28,7 @@ export default {
   display: flex;
   border: 1px solid var(--three-color);
   border-radius: 5px;
-  height: 40px;
+  height: 45px;
   margin-top: 20px;
   box-sizing: border-box;
   position: relative;

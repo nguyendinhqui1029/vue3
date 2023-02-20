@@ -1,12 +1,17 @@
 <template>
-  <form class="form">
-    <InputControl v-model:modelValue="email" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
-    <InputControl v-model:modelValue="password" label="Password" type="password" placeholder="Nhập password"/>
-    <div class="button-group">
-      <ButtonControl @buttonClick="handleClickLogin()" :label="'Đăng nhập'" type="primary"/>
-      <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng kí'" type="secondary"/>
+  <div class="wrapper">
+    <div class="logo-wrapper">
+      <div class="logo"></div>
     </div>
-  </form>
+    <form class="form">
+      <InputControl v-model:modelValue="email" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
+      <InputControl v-model:modelValue="password" label="Password" type="password" placeholder="Nhập password"/>
+      <div class="button-group">
+        <ButtonControl @buttonClick="handleClickLogin()" :label="'Đăng nhập'" type="primary"/>
+        <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng kí'" type="secondary"/>
+      </div>
+    </form>
+  </div>
 </template>
 <script>
 import InputControl from '@/components/shared/InputControl.vue';
@@ -35,6 +40,27 @@ export default {
 </script>
 
 <style scoped>
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  margin: auto;
+  width: 160px;
+  height: 160px;
+  background-image: url('@/assets/images/logo/logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  height: 100vh;
+}
  .form {
   padding: 16px;
   display: flex;

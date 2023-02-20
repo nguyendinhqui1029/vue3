@@ -19,6 +19,12 @@ import GomokuGame from '@/views/GomokuGame'
 import ChineseChess from '@/views/ChineseChess'
 import BarGame from '@/views/BarGame'
 import MobileReceiveCoinView from '@/views/MobileReceiveCoinView'
+import OverviewView from '@/components/admin/OverviewView'
+import AddPostView from '@/components/admin/AddPostView'
+import PostListView from '@/components/admin/PostListView'
+import PublicationTimerView from '@/components/admin/PublicationTimerView'
+import GameManagerView from '@/components/admin/GameManagerView'
+
 
 const routes = [
   {
@@ -108,7 +114,34 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: () => import('../views/AdminView.vue')
+    component: () => import('../views/AdminView.vue'),
+    children: [
+      {
+        path: '',
+        name: 'overview',
+        component: OverviewView,
+      },
+      {
+        path: 'add-post',
+        name: 'add-post',
+        component: AddPostView,
+      },
+      {
+        path: 'post-list',
+        name: 'post-list',
+        component: PostListView,
+      },
+      {
+        path: 'publication-timer',
+        name: 'publication-timer',
+        component: PublicationTimerView,
+      },
+      {
+        path: 'game-manager',
+        name: 'game-manager',
+        component: GameManagerView,
+      }
+    ]
   },
   {
     path: '/:pathMatch(.*)*',
