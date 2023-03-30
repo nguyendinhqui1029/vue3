@@ -1,7 +1,15 @@
 <template>
   <div class="input-wrapper">
     <label class="label">{{ label }}</label>
-      <input class="input" @input="$emit('update:modelValue',$event.target.value)" :type="type" :placeholder="placeholder" :value="modelValue"/>
+      <input class="input" 
+      :disabled="isDisabled" 
+      :class="{'disabled': isDisabled}" 
+      @input="$emit('update:modelValue',$event.target.value)" 
+      @focusin="$emit('focusin')"
+      @focusout="$emit('focusout')"
+      :type="type" 
+      :placeholder="placeholder" 
+      :value="modelValue"/>
   </div>
 </template>
 <script>
@@ -17,12 +25,20 @@ export default {
       type: String,
       require: true
     },
-    placeholder: String
+    placeholder: String,
+    isDisabled: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>
 
 <style scoped>
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+ }
  .input-wrapper {
   width: 100%;
   display: flex;

@@ -6,7 +6,7 @@
             <SwitchButton :initialValue="darkMode" @value-change="switchButtonChange($event)"/>
           </li>
           <li>
-            <router-link  class="router-link" to="forget-password">Quên mật khẩu</router-link>
+            <router-link  class="router-link" to="forget-password?type=settings">Quên mật khẩu</router-link>
           </li>
           <li>Đăng xuất</li>
       </ul>

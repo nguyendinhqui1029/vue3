@@ -39,7 +39,17 @@ export default {
   components: { MobileHeader },
   setup() {
     const crypto = new Crypto();
-    const encode = crypto.encode({id:1, win: true}, '123456789');
+    const encode = crypto.encode({
+      password:'Mã hóa về md5',
+      name: 'Nguyễn Văn A',
+      bank: [
+        {bankName:'ACB',bankNumber:'123456332', name:'Nguyen Van A'},
+        {bankName:'MoMo',bankNumber:'123456789', name:'Nguyen Van A'}],
+      birthday: '10/01/1997',
+      gender: 'Male',
+      phone: '123456789',
+      avatar: ''
+      }, '123456789');
     const decode = crypto.decode(encode, '123456789');
     console.log(encode);
     console.log(decode);

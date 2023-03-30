@@ -9,6 +9,9 @@ import { ref } from 'vue';
 export default {
   name: 'CheckBoxControl',
   props: {
+    content:{
+      type: String || Number
+    },
     value: {
       type: Boolean,
       require: true,
@@ -29,7 +32,7 @@ export default {
     function checkboxClick() {
       if(!props.isDisabled) {
         isCheck.value = !isCheck.value
-        context.emit('checkboxClick',isCheck.value);
+        context.emit('checkboxClick',{checked:isCheck.value, value: props.content});
       }
     }
     return {id, isCheck, checkboxClick }
@@ -41,10 +44,12 @@ export default {
 .check-box-wrapper {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .title {
   margin-left: 5px;
   user-select: none;
+  width: calc( 100% - 25px);
 }
 .title, .check-box {
   cursor: pointer;

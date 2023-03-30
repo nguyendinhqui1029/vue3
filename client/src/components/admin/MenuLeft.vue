@@ -1,6 +1,6 @@
 <template>
   <div class="menu-wrapper">
-    <router-link class="router-link" to="/luck?type=film">
+    <router-link class="router-link" to="/">
       <div class="logo"></div>
     </router-link>
     <hr class="divide" />

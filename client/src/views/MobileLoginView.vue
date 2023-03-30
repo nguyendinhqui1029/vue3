@@ -27,7 +27,8 @@ export default {
   
     function handleClickLogin() {
       if(email.value === '123' && password.value === '123') {
-        router.replace({ path: '/luck', query: {type: 'film' } });
+        localStorage.setItem('isLogin', true)
+        router.replace({ name: 'story'});
       }
       return;
     }

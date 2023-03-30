@@ -4,8 +4,6 @@ import MobileLayoutView from '../views/MobileLayoutView.vue'
 import MobileDetailView from '../views/MobileDetailView.vue'
 import MobileFilmView from '../views/MobileFilmView.vue'
 import FilmView from '../views/FilmView.vue'
-import MusicView from '../views/MusicView.vue'
-import MobileMusicView from '../views/MobileMusicView.vue'
 import StoryView from '../views/StoryView.vue'
 import MobileStoryView from '../views/MobileStoryView.vue'
 import MobileSearchView from '../views/MobileSearchView.vue'
@@ -33,18 +31,56 @@ const routes = [
     component: MobileRegisterView,
   },
   {
-    path: '',
+    path: '/login',
     name: 'login',
     component: MobileLoginView,
   },
   {
-    path: '/luck',
+    path: '/game',
+    name: 'game',
+    component: GameView,
+    beforeEnter: () => {
+      if (localStorage.getItem('isLogin') === 'true') {
+        return true;
+      } else {
+        router.push({ path: '/login' });
+        return false;
+      }
+    },
+    children:[
+      {
+        path: '/gomoku-game',
+        name: 'gomoku-game',
+        component: GomokuGame,
+      },
+      {
+        path: '/chinese-chess',
+        name: 'chinese-chess',
+        component: ChineseChess,
+      },
+      {
+        path: '/bar-game',
+        name: 'bar-game',
+        component: BarGame,
+      },
+    ]
+  },
+  {
+    path: '',
     name: 'layout',
     component: isMobileDevice() ? MobileLayoutView : LayoutView,
+    beforeEnter: () => {
+      if (localStorage.getItem('isLogin') === 'true') {
+        return true;
+      } else {
+        router.push({ path: '/login' });
+        return false;
+      }
+    },
     children: [
       {
-        path: '',
-        name: 'film',
+        path: '/credit-card',
+        name: 'credit-card',
         component: isMobileDevice() ? MobileFilmView : FilmView,
       },
       {
@@ -58,14 +94,9 @@ const routes = [
         component: MobileReceiveCoinView,
       },
       {
-        path: '/music',
-        name: 'music',
-        component: isMobileDevice() ? MobileMusicView : MusicView ,
-      },
-      {
-        path: '/story',
+        path: '',
         name: 'story',
-        component: isMobileDevice() ? MobileStoryView : StoryView ,
+        component: isMobileDevice() ? MobileStoryView : StoryView,
       },
       {
         path: '/search',
@@ -83,26 +114,6 @@ const routes = [
         path: '/setting',
         name: 'setting',
         component: SettingView,
-      },
-      {
-        path: '/game',
-        name: 'game',
-        component: GameView,
-      },
-      {
-        path: '/gomoku-game',
-        name: 'gomoku-game',
-        component: GomokuGame,
-      },
-      {
-        path: '/chinese-chess',
-        name: 'chinese-chess',
-        component: ChineseChess,
-      },
-      {
-        path: '/bar-game',
-        name: 'bar-game',
-        component: BarGame,
       },
       {
         path: '/forget-password',

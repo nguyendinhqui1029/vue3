@@ -1,7 +1,6 @@
 <template>
   <div v-if="menuType === 'back-menu'" class="header-wrapper">
     <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
-    <vue-feather :type="'settings'" @click="navigateToSetting()"></vue-feather>
   </div>
   <div v-else-if="menuType === 'search-menu'" class="header-wrapper">
     <vue-feather @click="back()" :type="'arrow-left'"></vue-feather>
@@ -12,7 +11,6 @@
     <div class="logo"></div>
     <div class="icon-group">
       <vue-feather :type="'search'" @click="searchClick()"></vue-feather>
-      <vue-feather :type="'settings'" @click="navigateToSetting()"></vue-feather>
     </div>
   </div>
 </template>
@@ -39,9 +37,6 @@ export default {
     watch(valueInput, () => {
       router.replace({ path: '/search', query: { q: valueInput.value, type: router.currentRoute.value.query.type } });
     })
-    function navigateToSetting() {
-      router.push({ path: '/setting', query: { type: router.currentRoute.value.query.type } });
-    }
     function searchClick() {
       router.push({ path: '/search', query: { type: router.currentRoute.value.name } });
     }
@@ -51,7 +46,7 @@ export default {
     function clearValue() {
       valueInput.value = '';
     }
-    return { valueInput, back, searchClick, navigateToSetting, clearValue };
+    return { valueInput, back, searchClick, clearValue };
   }
 }
 </script>
