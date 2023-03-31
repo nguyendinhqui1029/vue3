@@ -19,7 +19,7 @@ use \App\Http\Controllers\API\V1\Admin\AuthController;
 Route::group(['as' => 'api.'], function () {
     Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
         Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-            Route::get('login', [AuthController::class, 'login'])->name('login');
+            Route::post('login', [AuthController::class, 'login'])->name('login');
         });
 
         Route::group(['prefix' => 'client', 'as' => 'client.'], function () {

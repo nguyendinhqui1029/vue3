@@ -25,4 +25,10 @@ class UserController extends Controller
         $user = Auth::user();
         return APIResponse::success(new UserResource($user));
     }
+
+    public function allUser(Request $request)
+    {
+        $users = User::all();
+        return APIResponse::success($users);
+    }
 }
