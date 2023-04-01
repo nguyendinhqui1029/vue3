@@ -1,7 +1,7 @@
 <template>
   <div class="card-wrapper">
     <div class="content">
-      <div class="logo" :style="{ 'background-image': 'url(' +imageUrl+ ')' }">
+      <div class="logo" :style="{ 'background-image': 'url(' + imageUrl + ')' }">
       </div>
       <div class="title">{{ title }}</div>
     </div>
@@ -21,7 +21,7 @@ export default {
   },
   setup(props) {
     const imageUrl = ref(props.url);
-    return {imageUrl};
+    return { imageUrl };
   }
 }
 </script>
@@ -34,6 +34,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .title {
   display: flex;
   flex: 1;
@@ -45,21 +46,23 @@ export default {
   border-bottom-right-radius: 16px;
   font-weight: bold;
   font-size: 20px;
-  background-image: linear-gradient(0deg,#a7a7a6fb,#565654fb);
+  background-image: linear-gradient(0deg, #a7a7a6fb, #565654fb);
   color: rgba(240, 248, 13, 0.717);
 }
+
 .content {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    z-index: 10;
-    left: 4px;
-    top: 4px;
-    width: calc(170px - 7px);
-    height: calc(244px - 7px);
-    background: red;
-    border-radius: 16px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  z-index: 10;
+  left: 4px;
+  top: 4px;
+  width: calc(170px - 7px);
+  height: calc(244px - 7px);
+  background: red;
+  border-radius: 16px;
 }
+
 .card-wrapper {
   width: 170px;
   height: 245px;
@@ -75,13 +78,14 @@ export default {
 .card-wrapper::before {
   content: '';
   position: absolute;
-  height: 150%;
+  height: 120%;
   width: 70px;
-  background-image: linear-gradient(#d7e897dd, #d7e897dd);
+  background-image: linear-gradient(#e9eed7dd, #f5f6f1dd);
   animation: animate 4s linear infinite;
-  top: -88px;
-  left: 23px;
+  top: -20px;
+  left: 47px;
 }
+
 .card-wrapper::after {
   content: '';
   position: absolute;
@@ -94,8 +98,8 @@ export default {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
-}
-</style>
+}</style>

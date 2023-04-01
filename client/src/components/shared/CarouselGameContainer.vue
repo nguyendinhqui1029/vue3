@@ -14,7 +14,7 @@ import GameCard from '@/components/shared/GameCard.vue'
 export default {
   name: 'CarouselGameContainer',
   components: { GameCard },
-  props: { itemList: [] },
+  props: { itemList: Array },
   setup(props, content){
     function itemClick(id) {
       content.emit('item-click', id);
@@ -36,8 +36,7 @@ export default {
   scroll-snap-type: x mandatory;
 }
 
-.carousel-wrapper::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+.carousel-wrapper::-webkit-scrollbar-thumb, .carousel-wrapper::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style>

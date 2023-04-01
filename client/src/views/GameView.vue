@@ -1,23 +1,5 @@
 <template>
   <div class="container">
-    <!-- <router-link :to="{path:'/gomoku-game',query:{ type: 'game'}}">
-      <div class="item">
-        <div class="logo" :style="{ 'background-image': 'url(' + require('../assets/images/gomoku-game.png') + ')' }"></div>
-        <small class="title-game">Caro</small>
-      </div>
-    </router-link>
-    <router-link :to="{path:'/chinese-chess',query:{ type: 'game'}}">
-      <div class="item">
-        <div class="logo"> Cờ tướng</div>
-        <small class="title-game">Cờ tướng</small>
-      </div>
-    </router-link>
-    <router-link :to="{path:'/bar-game',query:{ type: 'game'}}">
-      <div class="item">
-        <div class="logo"> Bar</div>
-        <small class="title-game">Bar game</small>
-      </div>
-    </router-link> -->
     <div class="menu-top">
       <div class="avatar">
         <vue-feather @click="home()" class='home' :size="35" :type="'corner-down-left'"></vue-feather>
@@ -30,7 +12,7 @@
         <vue-feather :size="20" :type="'plus'"></vue-feather>
       </div>
       <div class="function">
-        <vue-feather :size="25" :type="'list'"></vue-feather>
+        <vue-feather :size="25" :type="'bell'"></vue-feather>
         <vue-feather :size="25" :type="'user-plus'"></vue-feather>
         <vue-feather @click="toggleSound()" :size="25" :type="isMuteSound ? 'volume-x' : 'volume-2'"></vue-feather>
       </div>
@@ -41,8 +23,15 @@
           Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here Your scrolling text goes here 
         </marquee>
       </div>
+      <div class="categories-wrapper">
+        <div class="categories">
+          <span >Phổ biến</span>
+          <span class="active">Game bài</span>
+          <span >Sắp ra mắt</span>
+        </div>
+      </div>
       <div class="content">
-        <CarouselGameContainer :itemList="filmTheSameCategory" @itemClick="navigateToDetail($event)"/>
+        <CarouselGameContainer :itemList="filmTheSameCategory" @itemClick="navigateToRooms($event)"/>
       </div>
     </div>
   </div>
@@ -66,19 +55,51 @@ export default {
     function toggleSound() {
       isMuteSound.value = !isMuteSound.value;
     }
-    return { toggleSound, home, isMuteSound, filmTheSameCategory }
+    function navigateToRooms(id) {
+      router.push({ path: `/rooms/${id}` })
+    }
+    return { toggleSound, home, navigateToRooms, isMuteSound, filmTheSameCategory }
   }
 }
 </script>
 
 <style scoped>
+.categories-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.active {
+  border: 1px solid gold;
+    padding: 1px 5px;
+    border-radius: 30px;
+    line-height: 15px;
+    background-image:  linear-gradient(to top, rgba(248, 232, 8, 0.961), rgba(188, 174, 71, 0.934),  rgba(120, 119, 119, 0.1));
+
+}
+.categories {
+  display: flex;
+  align-items: center;  
+  justify-content: space-between;
+  border: 1px solid gold;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(247, 243, 194);
+  gap: 15px;
+  padding: 2px 2px;
+}
 .notification {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .notification marquee {
+  color: azure;
+  font-size: 10px;
   width: 50%;
   background-image:  linear-gradient(to right, rgba(120, 119, 119, 0.1), rgb(78, 73, 73, 0.3),  rgba(120, 119, 119, 0.1));
 }
@@ -89,59 +110,61 @@ export default {
 }
 
 .info {
-  width: 40px;
-  height: 40px;
-  border-radius: 50% 50%;
-  border: 1px solid rgb(223, 190, 2);
-  position: relative;
-  margin-left: 20px
+  width: 30px;
+    height: 30px;
+    border-radius: 50% 50%;
+    border: 1px solid rgb(223, 190, 2);
+    position: relative;
 }
 
 .info::after {
   content: '';
-  width: 40px;
-  height: 40px;
-  border-radius: 50% 50%;
-  border: 1px solid rgb(223, 190, 2);
-  position: absolute;
-  top: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50% 50%;
+    border: 1px solid rgb(223, 190, 2);
+    position: absolute;
+    top: -4px;
   background-image: url('@/assets/images/logo/logo.png');
   background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: red;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: red;
 }
 
 .info::before {
   display: block;
-  padding-left: 25px;
-  content: 'id: ';
-  width: 100px;
-  height: 20px;
-  border: 1px solid rgb(223, 190, 2);
-  border-radius: 20px;
-  position: absolute;
-  left: 20px;
-  top: 10px;
+    padding-left: 25px;
+    content: 'id: ';
+    width: 100px;
+    height: 20px;
+    border: 1px solid rgb(223, 190, 2);
+    border-radius: 20px;
+    position: absolute;
+    left: 20px;
+    top: 5px;
 }
 
 .avatar,
 .function {
   display: flex;
   width: 35%;
-  border: 2px solid rgb(255, 215, 0);
   border-top: none;
   align-items: center;
-  justify-content: flex-start;
-  border-bottom-left-radius: 100px;
-  border-bottom-right-radius: 100px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
   background-image: linear-gradient(to bottom, rgb(78, 73, 73, 0.6), rgb(120, 119, 119, 0.7), rgb(78, 73, 73, 0.6));
 }
-.function {
-  justify-content: center;
+.avatar {
   gap: 20px;
+  border-bottom-right-radius: 100px;
+  border-bottom: 2px solid rgb(223, 190, 2);
+  justify-content: flex-start;
+}
+.function {
+  justify-content: flex-end;
+  gap: 20px;
+  border-bottom-left-radius: 100px;
+  border-bottom: 2px solid rgb(223, 190, 2);
+  padding-right: 20px;
 }
 .function i {
   width: 30px;
@@ -171,12 +194,12 @@ export default {
 
 .menu-top {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .main-content {
-  flex: 6;
-  padding: 20px;
+  flex: 8;
+  padding: 6px 20px;
 }
 
 .menu-top,
@@ -184,44 +207,9 @@ export default {
   flex: 1;
 }
 
-/* a {
-  text-decoration: none;
-}
-
-.title-game {
-  text-align: center;
-  margin-top: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--four-color);
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
-  border-radius: 10px;
-  height: 80px;
-  cursor: pointer;
-  box-shadow: inset 0px 0px 4px 2px var(--three-color);
-  color: var(--four-color);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .container {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to right, rgb(151, 12, 12), rgb(223, 2, 57), rgb(151, 12, 12));
   width: 100vw;
   height: 100vh;
 }</style>

@@ -38,8 +38,7 @@ export default {
   scroll-snap-type: x mandatory;
 }
 
-.carousel-wrapper::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+.carousel-wrapper::-webkit-scrollbar-thumb, .carousel-wrapper::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style>

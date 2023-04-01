@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LayoutView from '../views/LayoutView.vue'
-import MobileLayoutView from '../views/MobileLayoutView.vue'
-import MobileDetailView from '../views/MobileDetailView.vue'
-import MobileFilmView from '../views/MobileFilmView.vue'
-import FilmView from '../views/FilmView.vue'
-import StoryView from '../views/StoryView.vue'
-import MobileStoryView from '../views/MobileStoryView.vue'
-import MobileSearchView from '../views/MobileSearchView.vue'
-import MobileSearch from '../components/client/mobile/MobileSearch.vue'
-import SettingView from '../views/MobileSettingView.vue'
-import MobileRegisterView from '../views/MobileRegisterView'
-import MobileLoginView from '../views/MobileLoginView'
-import MobileForgetPasswordView from '../views/MobileForgetPasswordView'
-import GameView from '../views/GameView'
+import LayoutView from '@/views/LayoutView.vue'
+import MobileLayoutView from '@/views/MobileLayoutView.vue'
+import MobileDetailView from '@/views/MobileDetailView.vue'
+import MobileFilmView from '@/views/MobileFilmView.vue'
+import FilmView from '@/views/FilmView.vue'
+import StoryView from '@/views/StoryView.vue'
+import MobileStoryView from '@/views/MobileStoryView.vue'
+import MobileSearchView from '@/views/MobileSearchView.vue'
+import MobileSearch from '@/components/client/mobile/MobileSearch.vue'
+import SettingView from '@/views/MobileSettingView.vue'
+import MobileRegisterView from '@/views/MobileRegisterView'
+import MobileLoginView from '@/views/MobileLoginView'
+import MobileForgetPasswordView from '@/views/MobileForgetPasswordView'
+import GameView from '@/views/GameView'
 import GomokuGame from '@/views/GomokuGame'
 import ChineseChess from '@/views/ChineseChess'
 import BarGame from '@/views/BarGame'
@@ -22,6 +22,9 @@ import AddPostView from '@/components/admin/AddPostView'
 import PostListView from '@/components/admin/PostListView'
 import PublicationTimerView from '@/components/admin/PublicationTimerView'
 import GameManagerView from '@/components/admin/GameManagerView'
+import LayoutGameView from '@/views/LayoutGameView'
+import GameRoomsView from '@/views/GameRoomsView'
+import LandingPageGameView from '@/views/LandingPageGameView'
 
 
 const routes = [
@@ -38,7 +41,7 @@ const routes = [
   {
     path: '/game',
     name: 'game',
-    component: GameView,
+    component: LayoutGameView ,
     beforeEnter: () => {
       if (localStorage.getItem('isLogin') === 'true') {
         return true;
@@ -48,6 +51,21 @@ const routes = [
       }
     },
     children:[
+      {
+        path: '',
+        name: 'game',
+        component: GameView,
+      },
+      {
+        path: '/rooms/:idGame',
+        name: 'rooms',
+        component: GameRoomsView,
+      },
+      {
+        path: '/landing-page',
+        name: 'landing-page',
+        component: LandingPageGameView,
+      },
       {
         path: '/gomoku-game',
         name: 'gomoku-game',

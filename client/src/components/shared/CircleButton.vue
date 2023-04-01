@@ -34,6 +34,10 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: String,
+      default: '50px'
     }
   },
   emits: ["buttonClick"],
@@ -59,8 +63,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  height: 35px;
+  width: calc(v-bind(size) - 15px);
+  height: calc(v-bind(size) - 15px);
   border-radius: 50%;
   border: 1px solid var(--four-color);
   cursor: pointer;
@@ -73,8 +77,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: v-bind(size);
+  height: v-bind(size);
   border-radius: 50%;
   border: 1px solid;
   background: #0B81FF;
@@ -85,29 +89,4 @@ export default {
   cursor: default;
 }
 
-@media only screen and (max-width: 360px) {
-
-  .inner {
-    width: 30px;
-    height: 30px;
-  }
-
-  .button {
-    width: 39px;
-    height: 39px;
-  }
-}
-
-@media only screen and (max-width: 280px) {
-
-  .inner {
-    width: 30px !important;
-    height: 30px !important;
-  }
-
-  .button {
-    width: 39px !important;
-    height: 39px !important;
-  }
-}
 </style>
