@@ -14,8 +14,6 @@ import MobileLoginView from '@/views/MobileLoginView'
 import MobileForgetPasswordView from '@/views/MobileForgetPasswordView'
 import GameView from '@/views/GameView'
 import GomokuGame from '@/views/GomokuGame'
-import ChineseChess from '@/views/ChineseChess'
-import BarGame from '@/views/BarGame'
 import MobileReceiveCoinView from '@/views/MobileReceiveCoinView'
 import OverviewView from '@/components/admin/OverviewView'
 import AddPostView from '@/components/admin/AddPostView'
@@ -62,25 +60,15 @@ const routes = [
         component: GameRoomsView,
       },
       {
-        path: '/landing-page',
-        name: 'landing-page',
+        path: '/loading-game/:token',
+        name: 'loading-game',
         component: LandingPageGameView,
       },
       {
         path: '/gomoku-game',
         name: 'gomoku-game',
         component: GomokuGame,
-      },
-      {
-        path: '/chinese-chess',
-        name: 'chinese-chess',
-        component: ChineseChess,
-      },
-      {
-        path: '/bar-game',
-        name: 'bar-game',
-        component: BarGame,
-      },
+      }
     ]
   },
   {

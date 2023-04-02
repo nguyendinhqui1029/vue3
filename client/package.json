@@ -20,7 +20,8 @@
     "vue-feather": "^2.0.0",
     "vue-google-adsense": "^2.0.0",
     "vue-router": "^4.0.3",
-    "vue-scriptx": "^0.2.5"
+    "vue-scriptx": "^0.2.5",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

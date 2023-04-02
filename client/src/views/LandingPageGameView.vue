@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page-wrapper">
+  <div class="landing-page-wrapper" v-if="!isShowGamePage">
     <div class="advertisement">ấda</div>
     <div class="loading-wrapper">
       <div id="loading">
@@ -12,51 +12,64 @@
       </div>
     </div>
   </div>
+  <div class="game-view" v-if="isShowGamePage">
+    <component :is="payload.typeGame"></component>
+  </div>
 </template>
 <script scope>
-import router from '@/router';
 import { ref } from 'vue';
-export const GameType = {
-  BarGame: {
-    id: 1,
-    path: 'bar-game'
-  }
-}
+
+import BarGame from '@/views/BarGame.vue';
+import ChineseChess from '@/views/ChineseChess.vue';
+import router from '@/router';
+import { useStore } from 'vuex';
+import { Crypto } from '@/utils/crypto';
+
 export default {
   name: 'LandingPageGameView',
   props: { itemList: Array },
+  components: { BarGame, ChineseChess},
   setup() {
+    const crypto = new Crypto();
+    const store = useStore();
     let currentPercent = ref('0%');
-    function getGameView(idGame) {
-      switch(idGame) {
-        case 1: return GameType.BarGame.path;
-        default: return GameType.BarGame.path;
-      }
-    }
-    function renderProgressBar(haveConfig) {
+    const isShowGamePage = ref(false);
+    const payload = ref(JSON.parse(crypto.decode(router.currentRoute.value.params.token, store.state.gameTypePayloadKey)));
+    function renderProgressBar(isNotLoading) {
+      isShowGamePage.value = false;
       const elm = document.querySelector('#progress');
       const interval = setInterval(function(){
         if(!elm.innerHTML.match(/100%/gi)){
-          if((parseInt(elm.innerHTML) + 1) === 97 && !haveConfig) return;
+          if((parseInt(elm.innerHTML) + 1) === 97 && !isNotLoading) return;
           this.currentPercent = (parseInt(elm.innerHTML) + 1) + '%';
           elm.innerHTML = this.currentPercent;
           const currentStep = document.querySelector('#fill');
-          currentStep.style.width = this.currentPercent;
+          if(currentStep) {
+            currentStep.style.width = this.currentPercent;
+          }
         } else {
           clearInterval(interval);
-          router.replace({path: getGameView(router.currentRoute.value.query.type), query: {q: haveConfig} })
+          isShowGamePage.value = true;
         }
-      }, 180);
+      }, 1);
     }
-    return { currentPercent, renderProgressBar };
+    return { currentPercent, renderProgressBar, isShowGamePage, payload };
   },
   mounted(){
-    this.renderProgressBar(null);
-
+    if(!this.payload || !this.payload.passAuthor) {
+      router.push({path:'/game'})
+      return;
+    }
+    //ToDo get config by typeGame":"1","roomId":123
+    this.renderProgressBar(true);
   }
 }
 </script>
 <style scoped>
+.game-view {
+  height: 100%;
+  width: 100%;
+}
 .loading-wrapper {
   flex: 1;
 }

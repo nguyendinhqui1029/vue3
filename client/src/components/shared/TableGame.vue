@@ -38,7 +38,7 @@ export default {
 <style scoped>
 
 .content span, small {
-  margin: 3px;
+  margin: 2px;
   color: white;
 }
 .current-people {
@@ -49,7 +49,7 @@ export default {
   position: absolute;
   width: inherit;
   height: inherit;
-  top: 20px;
+  top: 14px;
   left: 0;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ export default {
 }
 .table-wrapper {
   width: 115px;
-  height: 70px;
+  height: 60px;
   border: 7px solid rgb(59 49 33);
   border-radius: 40px;
   box-shadow: 0px 0px 5px #000000a3;
@@ -90,7 +90,7 @@ export default {
   display: flex;
   content: '';
   width: 112px;
-  height: 66px;
+  height: 57px;
   border: 2px solid rgb(249, 247, 245);
   border-radius: 40px;
 }

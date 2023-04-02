@@ -19,12 +19,17 @@
 import TableGame from '@/components/shared/TableGame.vue';
 import router from '@/router';
 import { reactive } from 'vue';
+import { Crypto } from '@/utils/crypto';
+import { useStore } from 'vuex';
+import { formatUrl } from '@/utils/utils';
 export default {
   name: 'GameRoomsView',
   components: {
     TableGame
   },
   setup() {
+    const store = useStore();
+    const crypto = new Crypto();
     const rooms = reactive({
       rooms: [
         { amount: 0, maxAmount: 3, money: 100, idRoom: 123 }, { amount: 1, maxAmount: 2, money: 100, idRoom: 124 },
@@ -44,8 +49,8 @@ export default {
 
     function navigateToLandingPage(roomId) {
       const typeGame = router.currentRoute.value.params.idGame;
-      if (!typeGame || !roomId) return;
-      router.push({ path: '/landing-page', query: { type: typeGame, roomId: roomId } });
+      const token = crypto.encode({passAuthor: true, typeGame, roomId}, store.state.gameTypePayloadKey);
+      router.push({ path:`/loading-game/${formatUrl(token)}`});
     }
     function filterRoomById(eventValue) {
       if (!eventValue.target.value) {
@@ -136,11 +141,10 @@ export default {
 
 .tables {
   display: grid;
-  grid-template-columns: 129px 129px 129px 129px 129px;
+  grid-template-columns: repeat(5, minmax(100px, 129px));
   grid-template-rows: repeat(auto-fit, 83px);
   gap: 15px;
-  flex-wrap: wrap;
-  height: 272px;
+  flex: 3;
   overflow: auto;
   padding: 16px;
   margin-top: 5px;

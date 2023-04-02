@@ -13,3 +13,7 @@ export function setTheme(isDark) {
     document.querySelector(':root').style.setProperty('--five-color', '#e2e2e2ba');
   }
 }
+
+export function formatUrl(url) {
+  return url.replace(/\//gi, '%2f');
+}

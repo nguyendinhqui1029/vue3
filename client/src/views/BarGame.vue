@@ -31,6 +31,9 @@
         </div>
         <div class="amount">{{ bell }}</div>
 
+        <div></div>
+        <CircleButton :size="'50px'" type="text" label="Thoát" @buttonClick="navigatePreviousPage()" />
+
       </div>
       <div id="bar-board">
         <div v-for="item in barBoard.board" :key="'bar-' + item.index"
@@ -81,7 +84,7 @@
             :urlImage="require('@/utils/bar-game/images/bar.png')" @buttonClick="enterPoint('bar')" />
         </div>
 
-        <CircleButton :size="'45px'" type="text" label="Start" @buttonClick="start()" />
+        <CircleButton :size="'50px'" type="text" label="Start" @buttonClick="start()" />
 
       </div>
     </div>
@@ -111,12 +114,10 @@ export default {
     const barBoard = reactive({ board: barGame.barBoard });
     const disableStartButton = ref(false);
     const playerScore = ref(100);
-    //TODO: Check đúng q mới cho vào game
-    if (router.currentRoute.value.query.q) {
-      router.back();
-      return;
-    }
     
+    function navigatePreviousPage() {
+      router.back();
+    }
     function setAmountForItem(type, amount) {
       switch (type) {
         case 'orange': {
@@ -307,7 +308,7 @@ export default {
 
     return {
       barBoard, disableStartButton, content, playerScore, orange, toadFruit, bell, apple,
-      star, sevenSeven, bar, watermelon, awardScore, start, enterPoint
+      star, sevenSeven, bar, watermelon, awardScore, start, enterPoint, navigatePreviousPage
     };
   }
 }
@@ -397,7 +398,7 @@ export default {
 .button-wrapper-left {
   display: grid;
   grid-template-columns: 1fr minmax(60px, 1fr);
-  grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-rows: repeat(auto-fit,50px);
   gap: 5px;
   align-items: center;
 }
@@ -405,7 +406,7 @@ export default {
 .button-wrapper-right {
   display: grid;
   grid-template-columns: minmax(60px, 1fr) 1fr;
-  grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-rows: repeat(auto-fit,50px);
   gap: 5px;
   align-items: center;
 }

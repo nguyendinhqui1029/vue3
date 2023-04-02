@@ -44,8 +44,9 @@ export default {
   name: 'GameView',
   components: { CarouselGameContainer },
   setup() {
-    const filmTheSameCategory = [{ id: '1', title: 'Xèng',  url:require('@/assets/images/bar.png'), status: 1 },
-        { id: '3', title: 'Đá bóng',  url:require('@/assets/images/da_bong.png'), status: 1 },
+    const filmTheSameCategory = [{ id: 'BarGame', title: 'Xèng',  url:require('@/assets/images/bar.png'), status: 1 },
+    { id: 'ChineseChess', title: 'Cờ tướng',  url:require('@/assets/images/chinese-chess.png'), status: 1 },    
+    { id: '3', title: 'Đá bóng',  url:require('@/assets/images/da_bong.png'), status: 1 },
         { id: '4', title: 'Bắn cá',  url:require('@/assets/images/king-fish.png'), status: 1 },
         { id: '4', title: 'Tài xỉu',  url:require('@/assets/images/tai-xui.png'), status: 1 }];
     const isMuteSound = ref(false)
