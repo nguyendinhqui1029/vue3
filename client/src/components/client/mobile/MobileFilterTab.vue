@@ -37,9 +37,8 @@ export default {
   background: var(--second-color);
 }
 
-.filter-tab::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+.filter-tab::-webkit-scrollbar-thumb, .filter-tab::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .filter-tab {

@@ -1,14 +1,22 @@
 <template>
   <div class="input-wrapper">
     <label class="label">{{ label }}</label>
-      <input class="input" :type="type" :placeholder="placeholder" :value="initialValue" @input="inputValueChange($event)"/>
+      <input class="input" 
+      :disabled="isDisabled" 
+      :class="{'disabled': isDisabled}" 
+      @input="$emit('update:modelValue',$event.target.value)" 
+      @focusin="$emit('focusin')"
+      @focusout="$emit('focusout')"
+      :type="type" 
+      :placeholder="placeholder" 
+      :value="modelValue"/>
   </div>
 </template>
 <script>
 export default {
   name: 'InputControl',
   props: {
-    initialValue: String,
+    modelValue: String,
     type: {
       type: String,
       default: 'text'
@@ -17,24 +25,26 @@ export default {
       type: String,
       require: true
     },
-    placeholder: String
-  },
-  setup(props, context){
-    function inputValueChange(eventTarget) {
-      context.emit('valueChange', eventTarget.target.value);
+    placeholder: String,
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
-    return { inputValueChange }
   }
 }
 </script>
 
 <style scoped>
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+ }
  .input-wrapper {
   width: 100%;
   display: flex;
   border: 1px solid var(--three-color);
   border-radius: 5px;
-  height: 40px;
+  height: 45px;
   margin-top: 20px;
   box-sizing: border-box;
   position: relative;

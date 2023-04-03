@@ -1,41 +1,67 @@
 <template>
-  <MobileHeader menuType="back-menu"/>
-  <form class="form">
-    <InputControl @valueChange="emailValueChange($event)" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
-    <InputControl @valueChange="emailValueChange($event)" label="Password" type="password" placeholder="Nhập password"/>
-    <div class="button-group">
-      <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng nhập'" type="primary"/>
-      <ButtonControl @buttonClick="handleClickBack()" :label="'Trở lại'" type="secondary"/>
+  <div class="wrapper">
+    <div class="logo-wrapper">
+      <div class="logo"></div>
     </div>
-  </form>
+    <form class="form">
+      <InputControl v-model:modelValue="email" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
+      <InputControl v-model:modelValue="password" label="Password" type="password" placeholder="Nhập password"/>
+      <div class="button-group">
+        <ButtonControl @buttonClick="handleClickLogin()" :label="'Đăng nhập'" type="primary"/>
+        <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng kí'" type="secondary"/>
+      </div>
+    </form>
+  </div>
 </template>
 <script>
 import InputControl from '@/components/shared/InputControl.vue';
 import ButtonControl from '@/components/shared/ButtonControl.vue';
-import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import { ref } from 'vue';
 import router from '@/router';
 export default {
   name: 'MobileLoginView',
-  components: { InputControl, ButtonControl, MobileHeader },
+  components: { InputControl, ButtonControl },
   setup() {
-    const email = ref('a@gmail.com');
-
-    function emailValueChange(value) {
-      console.log(value)
+    const email = ref('');
+    const password = ref('');
+  
+    function handleClickLogin() {
+      if(email.value === '123' && password.value === '123') {
+        localStorage.setItem('isLogin', true)
+        router.replace({ name: 'story'});
+      }
+      return;
     }
     function handleClickRegister() {
-      console.log('button Click')
+      router.replace({ path: '/register' })
     }
-    function handleClickBack() {
-      router.back();
-    }
-    return { email, emailValueChange, handleClickRegister, handleClickBack}
+    return { email, password, handleClickRegister, handleClickLogin}
   }
 }
 </script>
 
 <style scoped>
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  margin: auto;
+  width: 160px;
+  height: 160px;
+  background-image: url('@/assets/images/logo/logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  height: 100vh;
+}
  .form {
   padding: 16px;
   display: flex;

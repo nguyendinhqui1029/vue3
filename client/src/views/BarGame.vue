@@ -1,8 +1,41 @@
 <template>
-  <MobileHeader menuType="back-menu" />
   <div class="content">
     <div class="bar-container">
-      <div class="bar-board">
+      <div class="button-wrapper-left">
+
+        <div class="wrapper">
+          <label class="title">Điểm thưởng</label>
+          <div class="award">{{ awardScore }}</div>
+        </div>
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/tao.png')" @buttonClick="enterPoint('apple')" />
+        </div>
+        <div class="amount">{{ apple }}</div>
+
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/cam.png')" @buttonClick="enterPoint('orange')" />
+        </div>
+        <div class="amount">{{ orange }}</div>
+
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/coc.png')" @buttonClick="enterPoint('toadFruit')" />
+        </div>
+        <div class="amount">{{ toadFruit }}</div>
+
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/chuong.png')" @buttonClick="enterPoint('bell')" />
+        </div>
+        <div class="amount">{{ bell }}</div>
+
+        <div></div>
+        <CircleButton :size="'50px'" type="text" label="Thoát" @buttonClick="navigatePreviousPage()" />
+
+      </div>
+      <div id="bar-board">
         <div v-for="item in barBoard.board" :key="'bar-' + item.index"
           :class="{ 'item': item.index !== 9, 'merge-cell': item.index === 9, 'item-nine': item.index === 9 }">
           <span v-if="item.index !== 9" :class="{
@@ -20,69 +53,51 @@
           }"></span>
         </div>
       </div>
-      <div class="control-board">
-        <div class="button-wrapper">
-          <div class="amount">{{ orange }}</div>
-          <div class="amount">{{ toadFruit }}</div>
-          <div class="amount">{{ apple }}</div>
-          <div class="amount">{{ bell }}</div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/cam.png')" @buttonClick="enterPoint('orange')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/coc.png')" @buttonClick="enterPoint('toadFruit')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/tao.png')" @buttonClick="enterPoint('apple')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/chuong.png')" @buttonClick="enterPoint('bell')" />
-          </div>
-          <div class="amount">{{ watermelon }}</div>
-          <div class="amount">{{ star }}</div>
-          <div class="amount">{{ sevenSeven }}</div>
-          <div class="amount">{{ bar }}</div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/dua-hau.png')" @buttonClick="enterPoint('watermelon')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/sao.png')" @buttonClick="enterPoint('star')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/77.png')" @buttonClick="enterPoint('sevenSeven')" />
-          </div>
-          <div class="item-control">
-            <CircleButton :isDisabled="disableStartButton" type="image"
-              :urlImage="require('@/utils/bar-game/images/bar.png')" @buttonClick="enterPoint('bar')" />
-          </div>
-        </div>
-        <div class="wrapper">
-          <label class="title">Điểm thưởng:</label>
-          <div class="award">{{ awardScore }}</div>
-          <label class="title">Điểm bạn có:</label>
-          <div class="credit">{{ playerScore }}</div>
-          <CircleButton type="text" label="Start" @buttonClick="start()" />
-        </div>
-      </div>
+      <div class="button-wrapper-right">
 
+        <div class="wrapper">
+          <label class="title">Điểm của bạn</label>
+          <div class="credit">{{ playerScore }}</div>
+        </div>
+
+        <div class="amount">{{ watermelon }}</div>
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/dua-hau.png')" @buttonClick="enterPoint('watermelon')" />
+        </div>
+
+        <div class="amount">{{ star }}</div>
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/sao.png')" @buttonClick="enterPoint('star')" />
+        </div>
+
+        <div class="amount">{{ sevenSeven }}</div>
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/77.png')" @buttonClick="enterPoint('sevenSeven')" />
+        </div>
+
+        <div class="amount">{{ bar }}</div>
+        <div class="item-control">
+          <CircleButton :size="'45px'" :isDisabled="disableStartButton" type="image"
+            :urlImage="require('@/utils/bar-game/images/bar.png')" @buttonClick="enterPoint('bar')" />
+        </div>
+
+        <CircleButton :size="'50px'" type="text" label="Start" @buttonClick="start()" />
+
+      </div>
     </div>
   </div>
 </template>
 <script>
-import MobileHeader from '@/components/client/mobile/MobileHeader.vue';
 import CircleButton from '@/components/shared/CircleButton.vue';
 import { ref, reactive } from 'vue';
 import { BarGame } from '@/utils/bar-game/bar-game';
+import router from '@/router';
 export default {
   name: 'BarGame',
-  components: { MobileHeader, CircleButton },
+  components: { CircleButton },
   setup() {
     const barGame = new BarGame();
     barGame.renderBarBoard()
@@ -96,9 +111,13 @@ export default {
     const watermelon = ref(0);
     const sevenSeven = ref(0);
     const bar = ref(0);
-    const barBoard = reactive({ board:  barGame.barBoard});
+    const barBoard = reactive({ board: barGame.barBoard });
     const disableStartButton = ref(false);
     const playerScore = ref(100);
+    
+    function navigatePreviousPage() {
+      router.back();
+    }
     function setAmountForItem(type, amount) {
       switch (type) {
         case 'orange': {
@@ -249,16 +268,16 @@ export default {
           await barGame.sleep(timer);
           barBoard.board.find(item => item.index === boardValue[i]).isLight = true;
           if (i >= 4) {
-            barBoard.board.find(item => item.index === boardValue[i - 4]).isLight = lastIndexResult.includes(i-4);
+            barBoard.board.find(item => item.index === boardValue[i - 4]).isLight = lastIndexResult.includes(i - 4);
             if (i === boardValue.length - 1) {
-              barBoard.board.find(item => item.index === boardValue[i - 3]).isLight = lastIndexResult.includes(i-3);
+              barBoard.board.find(item => item.index === boardValue[i - 3]).isLight = lastIndexResult.includes(i - 3);
               await barGame.sleep(timer);
-              barBoard.board.find(item => item.index === boardValue[i - 2]).isLight = lastIndexResult.includes(i-2);
+              barBoard.board.find(item => item.index === boardValue[i - 2]).isLight = lastIndexResult.includes(i - 2);
               await barGame.sleep(timer);
-              barBoard.board.find(item => item.index === boardValue[i - 1]).isLight = lastIndexResult.includes(i-1);
+              barBoard.board.find(item => item.index === boardValue[i - 1]).isLight = lastIndexResult.includes(i - 1);
             }
           }
-          if(i === boardValue.length - 4) {
+          if (i === boardValue.length - 4) {
             barGame.runAudioStart(false);
             barGame.runAudioEnd(true);
           }
@@ -289,7 +308,7 @@ export default {
 
     return {
       barBoard, disableStartButton, content, playerScore, orange, toadFruit, bell, apple,
-      star, sevenSeven, bar, watermelon, awardScore, start, enterPoint
+      star, sevenSeven, bar, watermelon, awardScore, start, enterPoint, navigatePreviousPage
     };
   }
 }
@@ -298,36 +317,44 @@ export default {
 <style scoped>
 .flicker {
   animation: flicker 0.6s;
-  animation-iteration-count: infinite; 
+  animation-iteration-count: infinite;
 }
+
 @keyframes flicker {
-    0% {
-      background: gray;
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-      background: red;
-    }
-    75% {
-      background: gray;
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-      background: red;
-    }
+  0% {
+    background: gray;
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+    background: red;
+  }
+
+  75% {
+    background: gray;
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    background: red;
+  }
 }
+
 .red {
   background-color: red !important;
   transition: background-color 0.2s ease-in;
 }
 
 .title {
-  font-size: 10px;
-  text-align: left;
+  font-size: 14px;
+  text-align: center;
   width: 100%;
   user-select: none;
+  color: rgba(251, 255, 0, 0.906);
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .wrapper {
@@ -336,23 +363,12 @@ export default {
   justify-content: flex-end;
   align-items: flex-end;
   gap: 10px;
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
 }
 
 .award,
 .credit {
-  width: 90px;
-  background: var(--four-color);
-  border-radius: 5px;
-  color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 17px;
-  line-height: 40px;
-  height: 40px;
-}
-
-.amount {
   width: 100%;
   background: var(--four-color);
   border-radius: 5px;
@@ -360,16 +376,39 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 15px;
+  line-height: 30px;
+  height: 30px;
+}
+
+.amount {
+  width: 100%;
+  height: 30px;
+  background: var(--four-color);
+  border-radius: 5px;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 17px;
-  line-height: 40px;
+  line-height: 30px;
   user-select: none;
 }
 
-.button-wrapper {
+.button-wrapper-left {
   display: grid;
-  grid-template-columns: 50px 50px 50px 50px;
-  grid-template-rows: 30px 50px 30px 50px;
+  grid-template-columns: 1fr minmax(60px, 1fr);
+  grid-template-rows: repeat(auto-fit,50px);
   gap: 5px;
+  align-items: center;
+}
+
+.button-wrapper-right {
+  display: grid;
+  grid-template-columns: minmax(60px, 1fr) 1fr;
+  grid-template-rows: repeat(auto-fit,50px);
+  gap: 5px;
+  align-items: center;
 }
 
 .control-board {
@@ -386,8 +425,8 @@ export default {
 
 .item-nine::after {
   content: v-bind(content) !important;
-  bottom: 39px;
-  left: 105px;
+  bottom: 34px;
+  left: 88px;
   width: 45px !important;
   height: 24px !important;
   display: flex;
@@ -402,42 +441,42 @@ export default {
 }
 
 .item-bottom {
-  left: 13px;
-  top: -13px;
+  left: 10px;
+  top: -10px;
 }
 
 .item-right {
-  left: -8px;
-  top: 18px;
+  left: -12px;
+  top: 10px;
 }
 
 .item-top {
-  right: 9px;
-  bottom: -17px;
+  right: 10px;
+  bottom: -10px;
 }
 
 .item-one {
-  right: -15px;
-  bottom: -15px;
+  right: -10px;
+  bottom: -10px;
 }
 
 .item-seven {
-  left: -7px;
-  bottom: -17px;
+  left: -10px;
+  bottom: -10px;
 }
 
 .item-nine-teen {
-  right: -12px;
-  top: -9px;
+  right: -10px;
+  top: -10px;
 }
 
 .item-twenty-five {
   left: -10px;
-  top: -8px;
+  top: -10px;
 }
 
 .item-left {
-  top: 16px;
+  top: 10px;
   right: -12px;
 
 }
@@ -451,8 +490,8 @@ export default {
 }
 
 .inner-item {
-  width: 25px;
-  height: 25px;
+  width: 21px;
+  height: 21px;
   opacity: 1;
   position: absolute;
   z-index: 100;
@@ -462,205 +501,31 @@ export default {
 .item {
   border: 2px solid black;
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 43px;
+  height: 43px;
 }
 
 .bar-container {
   display: flex;
   justify-content: center;
-  padding: 16px;
-  flex-direction: column;
+  padding: 16px 40px;
+  flex-direction: row;
 }
 
-.bar-board {
+#bar-board {
   display: grid;
-  width: 357px;
-  height: 370px;
+    width: 315px;
+    height: 315px;
   background-image: url('@/utils/bar-game/images/bar-board.png');
-  background-position: inherit;
-  background-repeat: no-repeat;
-  background-size: contain;
-  grid-template-columns: repeat( 7, 50px );
-  grid-template-rows: repeat( 7, 49px );
-  gap: 1.5px 0.5px;
-  grid-column-start: 1;
-  grid-column-end: 9;
-  margin: auto;
+  background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    grid-template-columns: repeat(7, 45px);
+    grid-template-rows: repeat(7, 45px);
+    gap: 0 0px;
+    grid-column-start: 1;
+    grid-column-end: 9;
+    margin: auto;
 }
 
-@media only screen and (max-width: 280px) {
-  .amount {
-    font-size: 12px;
-  }
-
-  .button-wrapper {
-    display: grid;
-    grid-template-columns: 40px 40px 40px 40px;
-    grid-template-rows: 20px 40px 20px 40px;
-    gap: 5px;
-  }
-  .title {
-    font-size: 8px;
-}
-
-.award, .credit {
-  width: 55px;
-    line-height: 37px;
-    height: 20px;
-    font-size: 12px;
-}
-.control-board {
-    width: 235px;
-    padding: 5px;
-}
-
-.wrapper {
-    gap: 5px;
-}
-
-.bar-board {
-    width: 245px;
-    height: 257px;
-    grid-template-columns: repeat( 7, 34px );
-    grid-template-rows: repeat( 7, 34px );
-    gap: 0.5px;
-  }
-.item {
-  width: 100%;
-  height: 100%;
-}
-
-.inner-item {
-    width: 15px;
-    height: 15px;
-}
-.item-bottom {
-    left: 10px;
-    top: -8px;
-}
-.item-seven {
-    left: -8px;
-    bottom: -8px;
-}
-.item-top {
-    right: 9px;
-    bottom: -5px;
-}
-.item-one {
-    right: -8px;
-    bottom: -5px;
-}
-.item-nine::after {
-    bottom: 22px;
-    left: 70px;
-    width: 34px !important;
-    height: 19px !important;
-    font-size: 18px;
-}
-.item-nine-teen {
-    right: -8px;
-    top: -8px;
-}
-.item-twenty-five {
-    left: -8px;
-    top: -8px;
-}
-.item-left {
-    top: 8px;
-    right: -8px;
-}
-.item-right {
-    left: -8px;
-    top: 8px;
-}
-}
-
-@media only screen and (max-width: 360px) {
-.amount {
-  font-size: 12px;
-}
-
-.button-wrapper {
-  display: grid;
-  grid-template-columns: 40px 40px 40px 40px;
-  grid-template-rows: 20px 40px 20px 40px;
-  gap: 5px;
-}
-.title {
-  font-size: 8px;
-}
-
-.award, .credit {
-  width: 55px;
-  line-height: 37px;
-  height: 20px;
-  font-size: 12px;
-}
-.control-board {
-  width: 235px;
-  padding: 13px;
-  margin-top: 15px;
-}
-
-.wrapper {
-  gap: 5px;
-}
-
-.bar-board {
-  width: 257px;
-  height: 257px;
-  grid-template-columns: repeat( 7, 36px );
-  grid-template-rows: repeat( 7, 36px );
-  gap: 0.5px;
-}
-.item {
-width: 100%;
-height: 100%;
-}
-
-.inner-item {
-  width: 15px;
-  height: 15px;
-}
-.item-bottom {
-  left: 10px;
-  top: -8px;
-}
-.item-seven {
-  left: -8px;
-  bottom: -8px;
-}
-.item-top {
-  right: 9px;
-  bottom: -5px;
-}
-.item-one {
-  right: -8px;
-  bottom: -5px;
-}
-.item-nine::after {
-  bottom: 22px;
-  left: 70px;
-  width: 34px !important;
-  height: 19px !important;
-  font-size: 18px;
-}
-.item-nine-teen {
-  right: -8px;
-  top: -8px;
-}
-.item-twenty-five {
-  left: -8px;
-  top: -8px;
-}
-.item-left {
-  top: 8px;
-  right: -8px;
-}
-.item-right {
-  left: -8px;
-  top: 8px;
-}
-}
 </style>

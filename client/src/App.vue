@@ -1,10 +1,10 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 <script>
 import { setTheme } from '@/utils/utils';
 export default {
-  name:'App',
+  name: 'App',
   setup() {
     const isDark = localStorage.getItem('isDark') === 'true';
     setTheme(isDark);
@@ -15,6 +15,7 @@ export default {
 body {
   margin: 0 !important;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

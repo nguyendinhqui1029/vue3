@@ -17,17 +17,20 @@ export default {
   components: { MobileMenu },
   setup() {
     const menuItemList = reactive([
-      { id: 1, url: '/', key: 'film', isActive: true, icon: 'tv', name: 'Phim' },
-      { id: 2, url: '/story', key: 'story', isActive: false, icon: 'book-open', name: 'Truyện' },
-      { id: 3, url: '/receive-coin', key: 'receive-coin', isActive: false, icon: 'award', name: 'Cày xu' },
-      { id: 4, url: '/music', key: 'music', isActive: false, icon: 'mic', name: 'Karaoke' },
-      { id: 5, url: '/game', key: 'game', isActive: false, icon: 'airplay', name: 'Trò chơi' }
+      { id: 3, url: '/', key: 'story', isActive: false, icon: 'book-open', name: 'Truyện' },
+      { id: 1, url: '/game', key: 'game', isActive: true, icon: 'airplay', name: 'Trò chơi' },
+      { id: 4, url: '/receive-coin', key: 'receive-coin', isActive: false, icon: 'gift', name: 'Cày xu' },
+      { id: 2, url: '/credit-card', key: 'credit-card', isActive: false, icon: 'credit-card', name: 'Ví' },
+      { id: 5, url: '/setting', key: 'settings', isActive: false, icon: 'settings', name: 'Cài đặt' },
+      
     ]);
     function menuItemClick(menu) {
       menuItemList.forEach(item => item.isActive = item.id === menu.id);
     }
     router.beforeEach(() => {
-      document.getElementById('mobileContentId').scrollTo(0, 0)
+      if(document.getElementById('mobileContentId')) {
+        document.getElementById('mobileContentId').scrollTo(0, 0);
+      }
     })
     return {menuItemList, menuItemClick };
   }

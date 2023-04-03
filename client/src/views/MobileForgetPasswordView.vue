@@ -1,7 +1,7 @@
 <template>
   <MobileHeader menuType="back-menu" />
   <form class="form">
-    <InputControl @valueChange="emailValueChange($event)" label="Email" :initialValue="email" type="email"
+    <InputControl v-model:modelValue="email" label="Email" :initialValue="email" type="email"
       placeholder="Nhập email" />
     <div class="button-group">
       <ButtonControl @buttonClick="handleClickRegister()" :label="'Lấy lại mật khẩu'" type="primary" />
@@ -21,16 +21,13 @@ export default {
   setup() {
     const email = ref('a@gmail.com');
 
-    function emailValueChange(value) {
-      console.log(value)
-    }
     function handleClickRegister() {
       console.log('button Click')
     }
     function handleClickBack() {
       router.back();
     }
-    return { email, emailValueChange, handleClickRegister, handleClickBack }
+    return { email, handleClickRegister, handleClickBack }
   }
 }
 </script>

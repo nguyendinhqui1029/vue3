@@ -1,9 +1,9 @@
 <template>
   <MobileHeader menuType="back-menu"/>
   <form class="form">
-    <InputControl @valueChange="emailValueChange($event)" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
-    <InputControl @valueChange="emailValueChange($event)" label="Password" type="password" placeholder="Nhập password"/>
-    <InputControl @valueChange="emailValueChange($event)" label="Re-password" type="password" placeholder="Nhập lại password"/>
+    <InputControl v-model:modelValue="email" label="Email" :initialValue="email" type="email" placeholder="Nhập email"/>
+    <InputControl v-model:modelValue="email" label="Password" type="password" placeholder="Nhập password"/>
+    <InputControl v-model:modelValue="email" label="Re-password" type="password" placeholder="Nhập lại password"/>
     <div class="button-group">
       <ButtonControl @buttonClick="handleClickRegister()" :label="'Đăng kí'" type="primary"/>
       <ButtonControl @buttonClick="handleClickBack()" :label="'Trở lại'" type="secondary"/>
@@ -21,17 +21,13 @@ export default {
   components: { InputControl, ButtonControl, MobileHeader },
   setup() {
     const email = ref('a@gmail.com');
-
-    function emailValueChange(value) {
-      console.log(value)
-    }
     function handleClickRegister() {
       console.log('button Click')
     }
     function handleClickBack() {
-      router.back();
+      router.replace('/');
     }
-    return { email, emailValueChange, handleClickRegister, handleClickBack}
+    return { email, handleClickRegister, handleClickBack}
   }
 }
 </script>
