@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .check-box-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 }
 .title {

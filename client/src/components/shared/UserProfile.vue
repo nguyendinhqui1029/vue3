@@ -6,7 +6,7 @@
       </div>
       <div class="money-wrapper">
         <div class="money-image" :style="{ 'background-image': 'url(' + coinIcon + ')' }"></div>
-        <span class="money">10000000</span>
+        <span class="money">{{ money }}</span>
       </div>
       <div class="status" v-if="!time">
         {{ status }}
@@ -42,11 +42,26 @@ export default {
       default: 70000
     }
   },
-  setup(props){
+  setup(props,content){
     const avatarUrl = ref(props.avatar);
     const coinIcon = require('@/assets/images/coin.png');
-    const second = ref((props.time/1000)%60);
-    const minute = ref(Math.floor((props.time/1000)/60))
+    const timer = ref(props.time);
+    const second = ref((timer.value/1000)%60);
+    const minute = ref(Math.floor((timer.value/1000)/60));
+    const interval = setInterval(()=>{
+      if(minute.value === 0 && second.value === 0) {
+        clearInterval(interval);
+        content.emit('timeOut');
+        return;
+      }
+      if(second.value === 0) {
+        minute.value--;
+        second.value = 60;
+      }
+      second.value--;
+      
+    }, 1000);
+    
     return { avatarUrl, coinIcon, second,  minute};
   }
 }

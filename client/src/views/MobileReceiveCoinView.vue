@@ -26,8 +26,10 @@ export default {
   components: { MobileHeader, MobileFilterTab, ButtonControl },
   setup() {
     const tabList = reactive([
-      { id: 1, active: true, name: 'Nhận xu' },
-      { id: 2, active: false, name: 'Trao đổi xu' }
+      { id: 1, active: true, name: 'Xem quảng cáo' },
+      { id: 2, active: false, name: 'Điền phiếu khảo sát' },
+      { id: 3, active: false, name: 'Xem video' },
+      { id: 4, active: false, name: 'Like & Share bài viết' }
     ]);
     const tabActive = ref(tabList.find(tab=>tab.active).id);
     function filterByTab(tabId) {

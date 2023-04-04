@@ -5,7 +5,7 @@
         :url="item.url" 
         :title="item.title" 
         :status="item.status"
-        @click="itemClick(item.id)"/>
+        @click="itemClick(item)"/>
     </div>
   </div>
 </template>
@@ -16,8 +16,8 @@ export default {
   components: { GameCard },
   props: { itemList: Array },
   setup(props, content){
-    function itemClick(id) {
-      content.emit('item-click', id);
+    function itemClick(item) {
+      content.emit('item-click', item);
     }
     return { itemClick }
   }

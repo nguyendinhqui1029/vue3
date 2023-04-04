@@ -15,5 +15,5 @@ export function setTheme(isDark) {
 }
 
 export function formatUrl(url) {
-  return url.replace(/\//gi, '%2f');
+  return url.replace(/\//gi, '%2f').replace(/=/gi,'%3D');
 }

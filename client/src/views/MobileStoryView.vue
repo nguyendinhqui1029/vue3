@@ -5,6 +5,12 @@
     <MobileFilterTab :tabList="tabList" @tab-click="filterByTab($event)"/>
   </div>
   <CategoriesContainer v-for="item in filmByCategory" :key="item.id" :header="item.name" :itemList="item.items" @card-click="navigateToDetail($event)" />
+  <ul class="icons">
+        <li v-for="icon in icons" :key="icon">
+          <vue-feather :type="icon"></vue-feather>
+          <span>{{ icon }}</span>
+        </li>
+  </ul>
 </template>
 <script scope>
   import { reactive, ref } from 'vue';
@@ -12,10 +18,12 @@
   import MobileHeader from '../components/client/mobile/MobileHeader.vue'
   import CategoriesContainer from '@/components/shared/CategoriesContainer.vue'
   import router from '@/router';
+  import feather from 'feather-icons';
   export default {
     name: 'MobileStoryView',
     components: { CategoriesContainer, MobileFilterTab, MobileHeader },
     setup() {
+    const icons = Object.keys(feather.icons);
     const type = ref('');
     const tabList = reactive([
     { id: 1, active: true, name: 'Tất cả' },{ id: 2, active: false, name: 'Hành động' },
@@ -48,7 +56,7 @@
     function navigateToDetail(idVideo) {
       router.push({path:`/detail/${idVideo}`, query: { type: type.value}});
     }
-    return { tabList,filmByCategory, filterByTab, navigateToDetail}
+    return { tabList,filmByCategory, icons, filterByTab, navigateToDetail}
   }
   }
 </script>
