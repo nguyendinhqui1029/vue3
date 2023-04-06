@@ -13,11 +13,21 @@
         <div class="account-info" v-if="sectionIdSelected === 1">
           <span class="label">Tên:</span><span class="value">{{ userInfo.name }}</span>
           <span class="label">ID:</span><span class="value-wrapper"><span class="value">{{ userInfo.id
-          }}</span><vue-feather :type="'copy'" @click="copyId(userInfo.id)"></vue-feather></span>
+          }}</span><vue-feather :size="20" :type="'copy'" @click="copyId(userInfo.id)"></vue-feather></span>
           <span class="label">Email:</span><span class="value">{{ userInfo.email }}</span>
           <span class="label">Số dư:</span><span><span class="value">{{ userInfo.balance }}</span><span
               class="currency">Xu</span></span>
           <span class="label">Số điện thoại:</span><span class="value">{{ userInfo.phone }}</span>
+          <span v-if="userInfo.walletLink.length" class="label">Ví đã liên kết:</span>
+          <span v-if="userInfo.walletLink.length">
+            <ul>
+              <li v-for="item in userInfo.walletLink" :key="item.address">
+                <span class="waller-name">{{ item.name }}</span>
+                <small>Địa chỉ ví: {{ item.address }}</small>
+                <vue-feather :size="20" class="delete-icon" type="trash-2"></vue-feather>
+              </li>
+            </ul>
+          </span>
         </div>
         <div class="setup-wallet" v-else-if="sectionIdSelected === 2">
           <InputControl type="text" label="Tên ví" placeholder="Đặt tên định danh cho ví" />
@@ -28,6 +38,8 @@
         <div class="transfer" v-else-if="sectionIdSelected === 4">
           <RadioButtonControl :value="true" label="Chuyển từ ví đến tài khoản."/>
           <RadioButtonControl :value="false" label="Chuyển từ tài khoản đến ví."/>
+          <DropdownControl @dropdownChange="dropdownWalletChange($event)" label="Ví" :options="userInfo.walletLink.map(item=>({id: item.address, name: item.name}))" :initialValue="[userInfo.walletLink[0].address]"/>
+          <InputControl type="text" :isDisabled="true" label="Tài khoản" placeholder="Tài khoản" :modelValue="userInfo.id" />
           <InputControl type="number" label="Số lượng" placeholder="Nhập số xu" />
           <InputControl type="text" :isDisabled="true" label="Phí chuyển" placeholder="Phí chuyển xu" />
           <CheckBoxControl :value="false" label="Tôi hoàn toàn đồng ý với mức phí chuyển và số lượng chuyển này."/>
@@ -51,11 +63,12 @@ import InputControl from '@/components/shared/InputControl.vue';
 import ButtonControl from '@/components/shared/ButtonControl.vue';
 import RadioButtonControl from '@/components/shared/RadioButtonControl.vue';
 import CheckBoxControl from '@/components/shared/CheckBoxControl.vue';
+import DropdownControl from '@/components/shared/DropdownControl.vue';
 
 import { ref, reactive } from 'vue';
 export default {
   name: 'MobileWalletView',
-  components: { MobileHeader, InputControl, ButtonControl, RadioButtonControl, CheckBoxControl },
+  components: { MobileHeader, InputControl, ButtonControl, RadioButtonControl, CheckBoxControl, DropdownControl },
   setup() {
     const isExpand = ref(false);
     const sectionIdSelected = ref('');
@@ -64,7 +77,8 @@ export default {
       id: '100011',
       email: 'nguyenvana@gmail.com',
       phone: '0123456xxxx',
-      balance: 100000
+      balance: 100000,
+      walletLink: [{name:'Ví 1', address: 'axvscXXXXXXcdfg'},{name:'Ví 2', address: 'axvsfXXXXXXcdfg'}]
     })
     let list = reactive({
       list: [
@@ -98,11 +112,35 @@ export default {
     function blockAccount() {
       console.log('block account')
     }
-    return { isExpand, list, sectionIdSelected, userInfo, expandInfo, copyId,blockAccount };
+
+    function dropdownWalletChange($event) {
+      console.log('dropdownWalletChange',$event)
+    }
+    return { isExpand, list, sectionIdSelected, userInfo, expandInfo, copyId, blockAccount, dropdownWalletChange};
   }
 }
 </script>
 <style scoped>
+.waller-name {
+  font-weight: bold;
+}
+.delete-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+span ul {
+  margin: 0;
+  padding: 0;
+}
+span ul li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  margin-bottom: 10px;
+}
 .setup-wallet {
   display: flex;
   flex-direction: column;
@@ -140,8 +178,9 @@ export default {
 
 .account-info {
   display: grid;
-  grid-template-columns: 40% 50%;
-  grid-auto-rows: 35px;
+  grid-template-columns: 40% 60%;
+  grid-auto-rows: auto;
+  gap: 12px 0;
 }
 
 .show-expand {

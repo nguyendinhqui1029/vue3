@@ -61,7 +61,7 @@ export default {
     const filmTheSameCategory = [{ id: 'BarGame', title: 'Xèng', url: require('@/assets/images/bar.png'), status: StatusGame.ready },
     { id: 'ChineseChess', title: 'Cờ tướng', url: require('@/assets/images/chinese-chess.png'), status: StatusGame.ready },
     { id: 'GomokuGame', title: 'Cờ caro', url: require('@/assets/images/logo-caro.png'), status: StatusGame.ready },
-    { id: '3', title: 'Đá bóng', url: require('@/assets/images/da_bong.png'), status: StatusGame.waiting },
+    { id: 'DuckRacingGame', title: 'Đua vịt', url: require('@/assets/images/duck-race-logo.jpg'), status: StatusGame.ready },
     { id: '4', title: 'Bắn cá', url: require('@/assets/images/king-fish.png'), status: StatusGame.waiting },
     { id: '4', title: 'Tài xỉu', url: require('@/assets/images/tai-xui.png'), status: StatusGame.waiting }];
     const isMuteSound = ref(false)

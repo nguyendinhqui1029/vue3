@@ -30,12 +30,12 @@ export default {
 }
 </script>
 <style scoped>
-
 .menu-item:nth-child(3) {
   border-radius: 50%;
   margin-bottom: 50px;
-  width: 80px;
-  height: 80px;
+  max-width: 75px;
+  width: 75px;
+  height: 75px;
   box-shadow: 0px 0px 1px 5px;
   background-color: var(--primary-color);
 }
@@ -71,9 +71,12 @@ export default {
 
 @media only screen and (max-width: 280px) {
   .menu-item:nth-child(3) {
-    margin-bottom: 33px;
-    height: 55px;
+    margin-bottom: 60px;
+    max-width: 75px;
+    width: 75px;
+    height: 60px;
   }
+
   .menu-item {
     font-size: 12px;
   }

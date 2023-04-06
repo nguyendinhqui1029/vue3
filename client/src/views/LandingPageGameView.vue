@@ -22,6 +22,8 @@ import { ref } from 'vue';
 import BarGame from '@/views/BarGame.vue';
 import ChineseChess from '@/views/ChineseChess.vue';
 import GomokuGame from '@/views/GomokuGame.vue';
+import DuckRacingGame from '@/views/DuckRacingGame.vue';
+
 import router from '@/router';
 import { useStore } from 'vuex';
 import { Crypto } from '@/utils/crypto';
@@ -29,7 +31,7 @@ import { Crypto } from '@/utils/crypto';
 export default {
   name: 'LandingPageGameView',
   props: { itemList: Array },
-  components: { BarGame, ChineseChess, GomokuGame},
+  components: { BarGame, ChineseChess, GomokuGame, DuckRacingGame},
   setup() {
     const crypto = new Crypto();
     const store = useStore();
