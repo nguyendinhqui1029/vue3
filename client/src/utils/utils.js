@@ -17,3 +17,11 @@ export function setTheme(isDark) {
 export function formatUrl(url) {
   return url.replace(/\//gi, '%2f').replace(/=/gi,'%3D');
 }
+
+export function delay(ms) {
+  try {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  } catch (error) {
+    console.log(error)
+  }
+}

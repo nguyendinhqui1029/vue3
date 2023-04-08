@@ -73,6 +73,8 @@ export default {
 .game-view {
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 .loading-wrapper {
   flex: 1;

@@ -1,5 +1,30 @@
 <template>
   <div class="container">
+    <div class="menu-wrapper" v-if="isShowNewOdds">
+      <div class="new-odds">
+        <div class="header-new-odds">Tỉ lệ cược</div>
+        <div class="item" v-for="(item, index) in oddsTable.oddsTable" :key="index" :class="{ [item.class]: true }"
+          @click="item.type === 'button' && placeBet(item)">
+          {{ item.reward }}
+          <span class="bets-money" v-if="item.type === 'button' && totalBetsMoney(item.betsMoney) > 0">{{
+            totalBetsMoney(item.betsMoney) }}</span>
+        </div>
+      </div>
+      <div class="history">
+        <span class="result-title">Kết quả</span>
+        <ul>
+          <li>
+            <span>1</span>-<span>2</span><span>5</span>
+          </li>
+          <li>
+            <span>1</span>-<span>2</span><span>5</span>
+          </li>
+        </ul>
+        <ButtonControl label="Bắt đầu đua" @buttonClick="startGame()" />
+      </div>
+    </div>
+
+    <div class="count-down" v-if="!isShowNewOdds && countDown >= 0">{{ countDown }}</div>
     <canvas id="duck_1">
     </canvas>
     <canvas id="duck_2">
@@ -12,37 +37,17 @@
     </canvas>
     <canvas id="duck_6">
     </canvas>
-    <canvas id="city-background">
-    </canvas>
-    <canvas id="road-background">
-    </canvas>
-  </div>
-  <div class="menu-wrapper" v-if="isShowNewOdds">
-    <div class="new-odds">
-      <div class="header-new-odds">Tỉ lệ cược</div>
-      <div class="item" v-for="(item, index) in oddsTable.oddsTable" :key="index" :class="{ [item.class]: true }" @click="item.type === 'button' && placeBet(item)" >
-        {{ item.reward }}
-        <span class="bets-money" v-if="item.type === 'button' && totalBetsMoney(item.betsMoney) > 0">{{
-          totalBetsMoney(item.betsMoney) }}</span>
-      </div>
-    </div>
-    <div class="history">
-      <span class="result-title">Kết quả</span>
-      <ul>
-        <li>
-          <span>1</span>-<span>2</span><span>5</span>
-        </li>
-        <li>
-          <span>1</span>-<span>2</span><span>5</span>
-        </li>
-      </ul>
-      <ButtonControl label="Bắt đầu đua" @buttonClick="startGame()" />
+    <div class="background">
+      <canvas id="city-background">
+      </canvas>
+      <canvas id="road-background">
+      </canvas>
     </div>
   </div>
 </template>
 <script>
 import { DuckRacing } from '@/utils/duck-racing-game/duck-racing';
-
+import { delay } from '@/utils/utils';
 import ButtonControl from '@/components/shared/ButtonControl.vue';
 import { reactive, ref } from 'vue';
 export default {
@@ -51,30 +56,36 @@ export default {
   setup() {
     const duckRacing = new DuckRacing();
     const oddsTable = reactive({ oddsTable: duckRacing.getOddsTable() });
-    const isShowNewOdds = ref(false);
+    const isShowNewOdds = ref(true);
+    const countDown = ref(5);
 
     function placeBet(boxClickData) {
-      oddsTable.oddsTable.forEach(item=>{
-        if(item.x === boxClickData.x && item.y === boxClickData.y) {
-          if(!item.betsMoney.length) {
-            item.betsMoney.push({idUser: 1, money: 1});
-          }else {
+      oddsTable.oddsTable.forEach(item => {
+        if (item.x === boxClickData.x && item.y === boxClickData.y) {
+          if (!item.betsMoney.length) {
+            item.betsMoney.push({ idUser: 1, money: 1 });
+          } else {
             const userId = 1
-            const index = item.betsMoney.findIndex(item=>item.id === userId);
-            if(index >= 0) {
+            const index = item.betsMoney.findIndex(item => item.id === userId);
+            if (index >= 0) {
               item.betsMoney[index].money += 1;
-            }else {
-              item.betsMoney.push({idUser: userId, money: 1})
+            } else {
+              item.betsMoney.push({ idUser: userId, money: 1 })
             }
           }
         }
       });
     }
 
-    function startGame() {
+    async function startGame() {
       isShowNewOdds.value = false;
+      while (countDown.value >= 0) {
+        await delay(1000);
+        countDown.value--;
+      }
+      duckRacing.startGame();
     }
-    return { oddsTable, isShowNewOdds, duckRacing, placeBet, startGame };
+    return { oddsTable, isShowNewOdds, duckRacing, countDown, placeBet, startGame };
   },
   methods: {
     totalBetsMoney(betsMoneyByUsers) {
@@ -88,6 +99,24 @@ export default {
 </script>
 
 <style scoped>
+.container .count-down {
+  position: absolute;
+  z-index: 350;
+  color: red;
+  font-size: 60px;
+  font-weight: 900;
+  height: 48px;
+  width: 48px;
+  line-height: 40px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
 .col-span-4 {
   grid-column: 3/7;
   display: flex;
@@ -96,6 +125,7 @@ export default {
   font-size: 20px;
   color: yellow;
 }
+
 .history {
   display: flex;
   flex-direction: column;
@@ -233,16 +263,23 @@ export default {
 #duck_5,
 #duck_6 {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
 }
 
-#city-background,
+.background {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30% 26%;
+}
+
+#city-background {
+  height: 100%;
+  width: 100%;
+}
+
 #road-background {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-}</style>
+  height: 100%;
+  width: 100%;
+}
+</style>

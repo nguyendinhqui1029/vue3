@@ -4,40 +4,28 @@ import { CityBackground } from '@/utils/duck-racing-game/city-background';
 import { RoadBackground } from '@/utils/duck-racing-game/road-background';
 export class DuckRacing {
   oddsTable;
+  objectGame = [];
   constructor() {
     this.oddsTable=[];
   }
-  initialGame() {
-    const duck1 = new DuckBlue(0.01, -55, 'duck_1', require('@/utils/duck-racing-game/images/duck_1.png'));
-    const duck2 = new DuckBlue(0.03, -35, 'duck_2', require('@/utils/duck-racing-game/images/duck_2.png'));
-    const duck3 = new DuckBlue(0.05, -10, 'duck_3', require('@/utils/duck-racing-game/images/duck_blue_3.png'));
-    const duck4 = new DuckBlue(0.06, 15, 'duck_4', require('@/utils/duck-racing-game/images/duck_blue_4.png'));
-    const duck5 = new DuckBlue(0.08, 35, 'duck_5', require('@/utils/duck-racing-game/images/duck_5.png'));
-    const duck6 = new DuckBlue(0.1, 50, 'duck_6', require('@/utils/duck-racing-game/images/duck_6.png'));
-    
-    const city = new CityBackground(1.5, 'city-background', require('@/utils/duck-racing-game/images/background-city.png'));
-    const road = new RoadBackground(1.5, 'road-background');
 
-    duck1.drawDuck();
-    duck2.drawDuck();
-    duck3.drawDuck();
-    duck4.drawDuck();
-    duck5.drawDuck();
-    duck6.drawDuck();
-    city.drawCity();
-    road.drawRoad();
-    setTimeout(()=>{
-      duck1.start = true;
-      duck2.start = true;
-      duck3.start = true;
-      duck4.start = true;
-      duck5.start = true;
-      duck6.start = true;
-      road.start = true;
-      city.start = true;
-    }, 5000);
+  initialGame() {
+    this.objectGame = [
+      new DuckBlue(0.01, -120, 'duck_1', require('@/utils/duck-racing-game/images/duck_1.png')),
+    new DuckBlue(0.03, -90, 'duck_2', require('@/utils/duck-racing-game/images/duck_2.png')),
+    new DuckBlue(0.05, -60, 'duck_3', require('@/utils/duck-racing-game/images/duck_blue_3.png')),
+    new DuckBlue(0.06, -30, 'duck_4', require('@/utils/duck-racing-game/images/duck_blue_4.png')),
+    new DuckBlue(0.08, 0, 'duck_5', require('@/utils/duck-racing-game/images/duck_5.png')),
+    new DuckBlue(0.1, 20, 'duck_6', require('@/utils/duck-racing-game/images/duck_6.png')),
+    new CityBackground(1.5, 'city-background', require('@/utils/duck-racing-game/images/background-city.png')),
+    new RoadBackground(1.5, 'road-background')
+  ];
+    this.objectGame.forEach(item=>item.draw());
   }
 
+  startGame() {
+    this.objectGame.forEach(item=>item.start = true);
+  }
   getOddsTable() {
     const awardMixin = this.mixItemInList();
     let index = 0;
