@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,SoftDeletes;
 
     const STATUS_WIN = 1;
     const STATUS_CLOSE = 2;
@@ -26,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'info', 'user_code', 'email','phone','role','info', 'name', 'point'
+        'info', 'user_code', 'email','phone','role','info', 'name', 'point' , 'describe_info'
     ];
 
     /**
@@ -35,7 +36,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password' ,'deleted_at'
     ];
 
     /**
@@ -96,5 +97,10 @@ class User extends Authenticatable implements JWTSubject
             self::STATUS_CLOSE,
             self::STATUS_DRAW,
         ];
+    }
+
+    public function addressWallet()
+    {
+        return $this->hasMany(AddressWallet::class,'user_id','id');
     }
 }
