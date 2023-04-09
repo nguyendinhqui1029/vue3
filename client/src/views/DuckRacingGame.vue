@@ -1,28 +1,31 @@
 <template>
   <div class="container">
-    <div class="menu-wrapper" v-if="isShowNewOdds">
-      <div class="new-odds">
-        <div class="header-new-odds">Tỉ lệ cược</div>
-        <div class="item" v-for="(item, index) in oddsTable.oddsTable" :key="index" :class="{ [item.class]: true }"
-          @click="item.type === 'button' && placeBet(item)">
-          {{ item.reward }}
-          <span class="bets-money" v-if="item.type === 'button' && totalBetsMoney(item.betsMoney) > 0">{{
-            totalBetsMoney(item.betsMoney) }}</span>
+    <Transition name="slide-fade">
+      <div class="menu-wrapper" v-if="isShowNewOdds">
+        <div class="new-odds">
+          <div class="header-new-odds">Tỉ lệ cược</div>
+          <div class="item" v-for="(item, index) in oddsTable.oddsTable" :key="index" :class="{ [item.class]: true }"
+            @click="item.type === 'button' && placeBet(item)">
+            {{ item.reward }}
+            <span class="bets-money" v-if="item.type === 'button' && totalBetsMoney(item.betsMoney) > 0">{{
+              totalBetsMoney(item.betsMoney) }}</span>
+          </div>
+        </div>
+        <div class="history">
+          <span class="result-title">Kết quả</span>
+          <ul>
+            <li>
+              <span>1</span>-<span>2</span><span>5</span>
+            </li>
+            <li>
+              <span>1</span>-<span>2</span><span>5</span>
+            </li>
+          </ul>
+          <ButtonControl label="Bắt đầu đua" @buttonClick="startGame()" />
         </div>
       </div>
-      <div class="history">
-        <span class="result-title">Kết quả</span>
-        <ul>
-          <li>
-            <span>1</span>-<span>2</span><span>5</span>
-          </li>
-          <li>
-            <span>1</span>-<span>2</span><span>5</span>
-          </li>
-        </ul>
-        <ButtonControl label="Bắt đầu đua" @buttonClick="startGame()" />
-      </div>
-    </div>
+    </Transition>
+
 
     <div class="count-down" v-if="!isShowNewOdds && countDown >= 0">{{ countDown }}</div>
     <canvas id="duck_1">
@@ -58,7 +61,10 @@ export default {
     const oddsTable = reactive({ oddsTable: duckRacing.getOddsTable() });
     const isShowNewOdds = ref(true);
     const countDown = ref(5);
-
+    duckRacing.stopGame.subscribe(value => {
+      isShowNewOdds.value = value;
+      oddsTable.oddsTable = duckRacing.getOddsTable();
+    });
     function placeBet(boxClickData) {
       oddsTable.oddsTable.forEach(item => {
         if (item.x === boxClickData.x && item.y === boxClickData.y) {
@@ -79,6 +85,7 @@ export default {
 
     async function startGame() {
       isShowNewOdds.value = false;
+      countDown.value = 5;
       while (countDown.value >= 0) {
         await delay(1000);
         countDown.value--;
@@ -94,11 +101,43 @@ export default {
   },
   mounted() {
     this.duckRacing.initialGame();
+  },
+  unmounted() {
+    if (this.duckRacing.stopGame) {
+      this.duckRacing.stopGame.unsubscribe();
+    }
   }
 }
 </script>
 
 <style scoped>
+.slide-fade-enter-active {
+  transition: all 0.8s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.container {
+  max-height: 376px;
+  max-width: 668px;
+  min-height: 280px;
+  margin: auto;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .container .count-down {
   position: absolute;
   z-index: 350;
@@ -174,7 +213,6 @@ export default {
   z-index: 300;
   background: gray;
   opacity: 0.9;
-  padding: 16px;
   padding: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -263,8 +301,6 @@ export default {
 #duck_5,
 #duck_6 {
   position: absolute;
-  width: 100%;
-  height: 100%;
 }
 
 .background {

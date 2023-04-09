@@ -11,6 +11,8 @@ export class DuckBlue {
   y=0;
   speed = 0;
   start = false;
+  cancelAnimation;
+
   constructor(speed, frameY, idCanvas, urlDuck) {
     this.canvas = document.getElementById(idCanvas);
     this.context = this.canvas.getContext('2d');
@@ -19,23 +21,24 @@ export class DuckBlue {
     this.playerImage = new Image();
     this.playerImage.src = urlDuck;
     this.frameY = 300 - this.heightDuck - frameY;
-    if(speed >= 0.02 && speed < 1.5) {
+    if(speed >= 0.02 && speed <= 0.1) {
       this.speed = speed;
     }else {
       this.speed = 0.02;
     }
   }
-
+  stopAnimation() {
+    cancelAnimationFrame(this.cancelAnimation);
+  }
   draw(){
     this.context.clearRect(this.frameX - 65,this.frameY, this.widthDuck,this.heightDuck);
     if(this.start) {
       this.frameX += this.speed;
       this.x = Math.floor(this.staggerGame/(1/this.speed))%4;
       this.y = Math.floor(this.staggerGame/(1/this.speed))%2;
-      if(this.frameX > 500) this.frameX = -50;
       this.staggerGame++;
     }
     this.context.drawImage(this.playerImage, this.x * this.widthDuck, this.y * this.heightDuck, this.widthDuck,this.heightDuck,this.frameX - 65,this.frameY,this.widthDuck,this.heightDuck);
-    requestAnimationFrame(this.draw.bind(this));
+    this.cancelAnimation = requestAnimationFrame(this.draw.bind(this));
   }
 }
