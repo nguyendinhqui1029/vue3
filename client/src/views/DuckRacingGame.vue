@@ -29,17 +29,17 @@
 
     <div class="count-down" v-if="!isShowNewOdds && countDown >= 0">{{ countDown }}</div>
     <canvas id="duck_1">
-    </canvas>
-    <canvas id="duck_2">
-    </canvas>
-    <canvas id="duck_3">
-    </canvas>
-    <canvas id="duck_4">
-    </canvas>
-    <canvas id="duck_5">
-    </canvas>
-    <canvas id="duck_6">
-    </canvas>
+        </canvas>
+        <canvas id="duck_2">
+        </canvas>
+        <canvas id="duck_3">
+        </canvas>
+        <canvas id="duck_4">
+        </canvas>
+        <canvas id="duck_5">
+        </canvas>
+        <canvas id="duck_6">
+        </canvas>
     <div class="background">
       <canvas id="city-background">
       </canvas>

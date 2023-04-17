@@ -31,7 +31,7 @@ export class RoadBackground {
     cancelAnimationFrame(this.cancelAnimation);
   }
   draw() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for(let i = 0; i<= this.TIMES; i++) {
       if(i === 0) {
         this.context.drawImage(this.playerImageStart, 0, 0, this.playerImageStart.width, this.playerImageStart.height, i*this.canvas.width + this.x, 0, this.canvas.width + 2, this.canvas.height);
@@ -43,7 +43,7 @@ export class RoadBackground {
     }
 
     if (this.start) {
-      this.x -= this.speed;
+      this.x -= this.speed; 
     }
     this.cancelAnimation = requestAnimationFrame(this.draw.bind(this));
     if (this.x <= - this.TIMES*this.canvas.width) {

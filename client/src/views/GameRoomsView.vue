@@ -6,7 +6,9 @@
         <input @input="filterRoomById($event)" class="search-input" type="text" placeholder="Tìm phòng theo ID" />
       </div>
       <div class="room-name"> Phòng</div>
-      <div class="actions"> thêm phòng</div>
+      <div class="actions">
+        <vue-feather @click="addRoom" class="plus" :size="35" :type="'plus'"></vue-feather>
+      </div>
     </div>
     <div class="tables">
       <TableGame v-for="item in filterRooms.filterRooms" :key="item.idRoom" :amount="item.amount"
@@ -59,12 +61,18 @@ export default {
         filterRooms.filterRooms = rooms.rooms.filter(item => item.idRoom.toString().includes(eventValue.target.value.toString()));
       }
     }
-    return { back, filterRoomById, navigateToLandingPage, filterRooms }
+    
+    function addRoom() {
+    }
+    return { back, filterRoomById, navigateToLandingPage, addRoom, filterRooms }
   }
 }
 </script>
 
 <style scoped>
+.plus {
+  color: rgb(255, 215, 0);
+}
 .search-input {
   width: 100%;
   border-radius: 20px;

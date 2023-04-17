@@ -21,10 +21,10 @@ export class DuckBlue {
     this.playerImage = new Image();
     this.playerImage.src = urlDuck;
     this.frameY = 300 - this.heightDuck - frameY;
-    if(speed >= 0.02 && speed <= 0.1) {
+    if(speed >= 0.01 && speed <= 0.1) {
       this.speed = speed;
     }else {
-      this.speed = 0.02;
+      this.speed = 0.01;
     }
   }
   stopAnimation() {

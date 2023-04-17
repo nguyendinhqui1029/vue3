@@ -14,12 +14,12 @@ export class DuckRacing {
 
   initialGame() {
     this.objectGame = [
-      new DuckBlue(0.01, -120, 'duck_1', require('@/utils/duck-racing-game/images/duck_1.png')),
-      new DuckBlue(0.03, -90, 'duck_2', require('@/utils/duck-racing-game/images/duck_2.png')),
-      new DuckBlue(0.05, -60, 'duck_3', require('@/utils/duck-racing-game/images/duck_blue_3.png')),
-      new DuckBlue(0.06, -30, 'duck_4', require('@/utils/duck-racing-game/images/duck_blue_4.png')),
-      new DuckBlue(0.08, 0, 'duck_5', require('@/utils/duck-racing-game/images/duck_5.png')),
-      new DuckBlue(0.01, 20, 'duck_6', require('@/utils/duck-racing-game/images/duck_6.png')),
+      new DuckBlue(0.1, -120, 'duck_1', require('@/utils/duck-racing-game/images/duck_1.png')),
+      new DuckBlue(0.01, -90, 'duck_2', require('@/utils/duck-racing-game/images/duck_2.png')),
+      new DuckBlue(0.01, -60, 'duck_3', require('@/utils/duck-racing-game/images/duck_blue_3.png')),
+      new DuckBlue(0.001, -30, 'duck_4', require('@/utils/duck-racing-game/images/duck_blue_4.png')),
+      new DuckBlue(0.01, 0, 'duck_5', require('@/utils/duck-racing-game/images/duck_5.png')),
+      new DuckBlue(0.1, 20, 'duck_6', require('@/utils/duck-racing-game/images/duck_6.png')),
       new CityBackground(1.1, 'city-background', require('@/utils/duck-racing-game/images/background-city.png')),
       new RoadBackground(1.1, 'road-background')
     ];
@@ -30,15 +30,15 @@ export class DuckRacing {
     this.stopGame.next(false);
     this.objectGame.forEach(item => item.start = true);
     const interval = setInterval(async () => {
-      const maxFrameXDuck = Math.max(...this.objectGame.slice(0, 6).map(item=>item.frameX));
-      if (maxFrameXDuck >= 340) {
+      const isRoadStop = Math.abs(this.objectGame[this.objectGame.length - 1].x) >= 4300;
+      if (isRoadStop) {
         clearInterval(interval);
         this.objectGame.forEach(item => item.stopAnimation());
         await delay(3000);
-        this.stopGame.next(true);
-        this.initialGame();
+        // this.stopGame.next(true);
+        // this.initialGame();
       }
-    }, 1500)
+    }, 100)
   }
 
   getOddsTable() {

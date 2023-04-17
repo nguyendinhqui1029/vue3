@@ -34,7 +34,7 @@
 </template>
 <script>
 import { reactive, ref } from 'vue';
-import { GomokuGame } from '@/utils/gomoku-game';
+import { GomokuGame } from '@/utils/gomoku-game/gomoku-game.js';
 import ButtonControl from '@/components/shared/ButtonControl.vue';
 import UserProfile from '@/components/shared/UserProfile.vue';
 import router from '@/router';
