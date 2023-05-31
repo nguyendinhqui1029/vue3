@@ -12,7 +12,8 @@
         <ul class="options">
           <li class="option-item" v-for="option in optionList.options" :key="option.id">
             <CheckBoxControl v-if="multiple" :content="option.id" :value="option.selected" @checkboxClick="optionClick($event)" :label="option.name" />
-            <span class="single" :class="{'single-item-selected': option.selected}" v-if="!multiple" @click="optionClick({checked: !option.selected , value: option.id })">{{ option.name }}</span>
+            <span class="single" v-if="!multiple" @click="optionClick({checked: !option.selected , value: option.id })">{{ option.name }}</span>
+            <vue-feather class="single-item-selected" v-if="option.selected && !multiple" type="check"></vue-feather>
           </li>
         </ul>
       </div>
@@ -47,6 +48,7 @@ export default {
       default: false
     }
   },
+  emits: ["dropdownChange"],
   components: { InputControl, CheckBoxControl },
   setup(props, content){
     const isOpen = ref(false);
@@ -109,12 +111,12 @@ export default {
 
 <style scoped>
 .single-item-selected {
-  background: rgb(197, 195, 195);
+  color: var(--primary-color);
 }
 .single {
   height: 25px;
-  width: 100%;
   display: flex;
+  flex: 1;
   align-items: center;
   padding: 2px 10px;
   cursor: pointer;

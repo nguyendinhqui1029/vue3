@@ -25,8 +25,8 @@ export class Point {
   }
 }
 export class GomokuGame {
-  row = 9;
-  col = 9;
+  row = 13;
+  col = 13;
   winScore = 100000000;
   board = [];
   availablePoint = [];

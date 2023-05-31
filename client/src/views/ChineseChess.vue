@@ -34,29 +34,30 @@
     </div>
     <div class="right"> 
       <div class="actions">
-        <vue-feather class="info" :type="'info'"></vue-feather>
-        <vue-feather class="mic" :type="'mic'"></vue-feather>
+        <vue-feather class="info" :type="'info'" @click="showGameRule()"></vue-feather>
+        <vue-feather class="mic" :type="isMuteMic ? 'mic-off' :'mic'" @click="toggleMic()"></vue-feather>
         <vue-feather class="log-out" @click="navigateToPreviousPage()" :type="'log-out'"></vue-feather>
       </div>
       <div class="user-wrapper">
         <UserProfile/>
       </div>
       <div class="button-wrapper">
-        <div class="button-draw">Xin Hòa</div>
-        <div class="button-lose">Xin Thua</div>
+        <div class="button-draw" @click="wantToDraw()">Xin Hòa</div>
+        <div class="button-lose" @click="wantToLose()">Xin Thua</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { ChineseChessGame } from '@/utils/chinese-chess/chinese-chess-game';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import UserProfile from '@/components/shared/UserProfile.vue';
 import router from '@/router';
 export default {
   name: 'ChineseChess',
   components: { UserProfile },
   setup() {
+    const isMuteMic = ref(false);
     const chessImage = reactive({
       image: {
         'general-black': require('@/utils/chinese-chess/images/general-black.svg'),
@@ -85,7 +86,26 @@ export default {
     function navigateToPreviousPage() {
       router.back();
     }
-    return { clickChessBox, navigateToPreviousPage, board, chessImage };
+
+    function showGameRule() {
+      console.log('showGameRule')
+    }
+
+    function toggleMic() {
+      isMuteMic.value = !isMuteMic.value;
+      console.log('toggleMic')
+    }
+
+    function wantToDraw() {
+      console.log('wantToDraw')
+    }
+
+    function wantToLose() {
+      console.log('wantToLose')
+    }
+    return { clickChessBox, navigateToPreviousPage, 
+      wantToLose, wantToDraw, toggleMic, showGameRule,
+        board, chessImage, isMuteMic };
   }
 }
 </script>
@@ -106,6 +126,7 @@ export default {
     background-image: linear-gradient(0deg, #ffdf5d, transparent);
     font-weight: bold;
     color: white;
+    height: 25px;
 }
 
 .button-lose {
@@ -115,9 +136,10 @@ export default {
     justify-content: center;
     border-radius: 10px;
     padding: 2px;
-    background-image: linear-gradient(0deg, #ffdf5d, transparent);
+    background-image: linear-gradient(180deg, #ffdf5d, transparent);
     font-weight: bold;
     color: white;
+    height: 25px;
 }
 .mic, .log-out, .info {
   position: absolute;

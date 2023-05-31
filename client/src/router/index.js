@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LayoutView from '@/views/LayoutView.vue'
 import MobileLayoutView from '@/views/MobileLayoutView.vue'
 import MobileDetailView from '@/views/MobileDetailView.vue'
-import MobileFilmView from '@/views/MobileFilmView.vue'
-import FilmView from '@/views/FilmView.vue'
+import MobileWalletView from '@/views/MobileWalletView.vue'
 import StoryView from '@/views/StoryView.vue'
 import MobileStoryView from '@/views/MobileStoryView.vue'
 import MobileSearchView from '@/views/MobileSearchView.vue'
@@ -87,7 +86,7 @@ const routes = [
       {
         path: '/credit-card',
         name: 'credit-card',
-        component: isMobileDevice() ? MobileFilmView : FilmView,
+        component: MobileWalletView
       },
       {
         path: '/detail/:id',

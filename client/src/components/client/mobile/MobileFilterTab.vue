@@ -51,7 +51,7 @@ export default {
 }
 
 .filter-tab-wrapper {
-  height: 45px;
+  height: 51px;
   display: flex;
   flex-direction: row;
   align-items: center;

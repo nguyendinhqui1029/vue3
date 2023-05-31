@@ -21,6 +21,9 @@ import { ref } from 'vue';
 
 import BarGame from '@/views/BarGame.vue';
 import ChineseChess from '@/views/ChineseChess.vue';
+import GomokuGame from '@/views/GomokuGame.vue';
+import DuckRacingGame from '@/views/DuckRacingGame.vue';
+
 import router from '@/router';
 import { useStore } from 'vuex';
 import { Crypto } from '@/utils/crypto';
@@ -28,7 +31,7 @@ import { Crypto } from '@/utils/crypto';
 export default {
   name: 'LandingPageGameView',
   props: { itemList: Array },
-  components: { BarGame, ChineseChess},
+  components: { BarGame, ChineseChess, GomokuGame, DuckRacingGame},
   setup() {
     const crypto = new Crypto();
     const store = useStore();
@@ -50,8 +53,9 @@ export default {
         } else {
           clearInterval(interval);
           isShowGamePage.value = true;
+          elm.innerHTML = '0%';
         }
-      }, 1);
+      }, 30);
     }
     return { currentPercent, renderProgressBar, isShowGamePage, payload };
   },
@@ -69,6 +73,8 @@ export default {
 .game-view {
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 .loading-wrapper {
   flex: 1;

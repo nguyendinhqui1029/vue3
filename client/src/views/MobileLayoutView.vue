@@ -20,7 +20,7 @@ export default {
       { id: 3, url: '/', key: 'story', isActive: false, icon: 'book-open', name: 'Truyện' },
       { id: 1, url: '/game', key: 'game', isActive: true, icon: 'airplay', name: 'Trò chơi' },
       { id: 4, url: '/receive-coin', key: 'receive-coin', isActive: false, icon: 'gift', name: 'Cày xu' },
-      { id: 2, url: '/credit-card', key: 'credit-card', isActive: false, icon: 'credit-card', name: 'Ví' },
+      { id: 2, url: '/credit-card', key: 'credit-card', isActive: false, icon: 'credit-card', name: 'Tài khoản' },
       { id: 5, url: '/setting', key: 'settings', isActive: false, icon: 'settings', name: 'Cài đặt' },
       
     ]);
