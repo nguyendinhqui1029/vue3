@@ -2,12 +2,11 @@ import { OddsTable, Reward } from "./odds-table.const";
 import { DuckBlue } from '@/utils/duck-racing-game/duck-blue.js';
 import { CityBackground } from '@/utils/duck-racing-game/city-background';
 import { RoadBackground } from '@/utils/duck-racing-game/road-background';
-import { Subject } from 'rxjs';
 import { delay } from "../utils";
 export class DuckRacing {
   oddsTable;
   objectGame = [];
-  stopGame = new Subject(true);
+  stopGame = false;
   constructor() {
     this.oddsTable = [];
   }
@@ -27,7 +26,7 @@ export class DuckRacing {
   }
 
   startGame() {
-    this.stopGame.next(false);
+    this.stopGame = false;
     this.objectGame.forEach(item => item.start = true);
     const interval = setInterval(async () => {
       const isRoadStop = Math.abs(this.objectGame[this.objectGame.length - 1].x) >= 4300;
@@ -35,8 +34,8 @@ export class DuckRacing {
         clearInterval(interval);
         this.objectGame.forEach(item => item.stopAnimation());
         await delay(3000);
-        // this.stopGame.next(true);
-        // this.initialGame();
+        this.stopGame = true;
+        this.initialGame();
       }
     }, 100)
   }
