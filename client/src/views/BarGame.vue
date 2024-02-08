@@ -253,7 +253,7 @@ export default {
       if (!disableStartButton.value
         && ((playerScore.value && barGame.isScorePlayerBiggerScoreItemSelected(playerScore.value))
           || !isAmountEmpty())) {
-        const boardValue = barGame.boardRun('strongly');
+        const boardValue = barGame.boardRun('perfectly');
         barBoard.board.forEach(item => item.isLight = false);
         barBoard.board.find(item => item.index === boardValue[0]).isLight = true;
         let i = 0;
