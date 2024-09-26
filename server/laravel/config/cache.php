@@ -19,6 +19,7 @@ return [
     */
 
     'default' => env('CACHE_DRIVER', 'file'),
+    'key_response' => env('KEY_RESPONSE'),
 
     /*
     |--------------------------------------------------------------------------
