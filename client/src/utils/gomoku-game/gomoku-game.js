@@ -25,9 +25,9 @@ export class Point {
   }
 }
 export class GomokuGame {
-  row = 13;
-  col = 13;
-  winScore = 100000000;
+  row = 20;
+  col = 20;
+  winScore = 10000000;
   board = [];
   availablePoint = [];
   isGameOver = false;
@@ -38,7 +38,7 @@ export class GomokuGame {
     this.playerWin = false;
     this.aiWin = false;
     this.isDraw = false;
-    this.winScore = 100000000;
+    this.winScore = 10000000;
     this.isGameOver = false;
     this.availablePoint = [];
     this.initializeBoard();
